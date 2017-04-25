@@ -1,0 +1,7 @@
+mgd_news:
+    resource: "@MGDNewsBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

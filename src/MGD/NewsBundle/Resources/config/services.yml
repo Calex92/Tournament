@@ -1,0 +1,4 @@
+services:
+#    mgd_news.example:
+#        class: MGD\NewsBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
