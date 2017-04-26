@@ -1,0 +1,3 @@
+mgd_user_homepage:
+    path:     /
+    defaults: { _controller: MGDUserBundle:Default:index }

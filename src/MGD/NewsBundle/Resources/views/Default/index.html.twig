@@ -1,20 +1,19 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <div class="main-content">
-        {% for news in listNews %}
-            <div class="row">
-                {% if news.image %}<img src="{{ news.image }}" class="col-md-3" style="height: 180px;">{% endif %}
-                <div class="{% if news.image %}col-md-9{% else %}col-md-12{% endif %}">
-                    <h1>{{ news.title }}</h1>
-                    <p>
-                        {{ news.body|striptags |length > 300 ? news.body|striptags |slice(0, 300) ~ '...' : news.body|striptags  }}
-                    </p>
-                    <span>Créé le {{ news.creationDate|date("d/m/Y") }} par {{ news.creator.firstname }} {{ news.creator.name }}</span>
-                    <a href="#" class="pull-right btn btn-default">Lire la suite</a>
-                </div>
+    {% for news in listNews %}
+        <div class="row">
+            {% if news.image %}<img src="{{ news.image }}" class="col-md-3" style="height: 180px;">{% endif %}
+            <div class="{% if news.image %}col-md-9{% else %}col-md-12{% endif %}">
+                <h1>{{ news.title }}</h1>
+                <p>
+                    {{ news.body|striptags |length > 300 ? news.body|striptags |slice(0, 300) ~ '...' : news.body|striptags }}
+                </p>
+                <span>Créé le {{ news.creationDate|date("d/m/Y") }}
+                    par {{ news.creator.firstname }} {{ news.creator.name }}</span>
+                <a href="#" class="pull-right btn btn-default">Lire la suite</a>
             </div>
-            <hr>
-        {% endfor %}
-    </div>
+        </div>
+        <hr>
+    {% endfor %}
 {% endblock %}

@@ -17,16 +17,21 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <ul class="nav navbar-nav">
-            <li class="{% if path(app.request.attributes.get('_route')) == path("mgd_news_homepage") %}active{% endif %}"><a href="{{ path('mgd_news_homepage') }}">News</a></li>
-            <li class="{% if path(app.request.attributes.get('_route')) == path("mgd_event_homepage") %}active{% endif %}"><a href="{{ path('mgd_event_homepage') }}">Evénements</a></li>
-            <li class="{% if path(app.request.attributes.get('_route')) == "mgd_news_homepage" %}active{% endif %}"><a href="#">Se connecter</a></li>
+            <li class="{% if path(app.request.attributes.get('_route')) == path("mgd_news_homepage") %}active{% endif %}">
+                <a href="{{ path('mgd_news_homepage') }}">News</a></li>
+            <li class="{% if path(app.request.attributes.get('_route')) == path("mgd_event_homepage") %}active{% endif %}">
+                <a href="{{ path('mgd_event_homepage') }}">Evénements</a></li>
+            <li class="{% if path(app.request.attributes.get('_route')) == path("fos_user_security_login") %}active{% endif %}">
+                <a href="{{ path('fos_user_security_login') }}">Se connecter</a></li>
         </ul>
     </div>
 </nav>
-<div class="container" >
-    {% block body %}
+<div class="container">
+    <div class="main-content">
+        {% block body %}
 
-    {% endblock %}
+        {% endblock %}
+    </div>
 </div>
 {% block javascripts %}
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"

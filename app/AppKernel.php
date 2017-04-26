@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new AppBundle\AppBundle(),
             new MGD\NewsBundle\MGDNewsBundle(),
             new MGD\EventBundle\MGDEventBundle(),
+            new MGD\UserBundle\MGDUserBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
