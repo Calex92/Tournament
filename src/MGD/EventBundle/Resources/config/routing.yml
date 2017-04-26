@@ -1,0 +1,3 @@
+mgd_event_homepage:
+    path:     /
+    defaults: { _controller: MGDEventBundle:Default:index }

@@ -17,9 +17,9 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="#">News</a></li>
-            <li><a href="#">Evénements</a></li>
-            <li><a href="#">Se connecter</a></li>
+            <li class="{% if path(app.request.attributes.get('_route')) == path("mgd_news_homepage") %}active{% endif %}"><a href="{{ path('mgd_news_homepage') }}">News</a></li>
+            <li class="{% if path(app.request.attributes.get('_route')) == path("mgd_event_homepage") %}active{% endif %}"><a href="{{ path('mgd_event_homepage') }}">Evénements</a></li>
+            <li class="{% if path(app.request.attributes.get('_route')) == "mgd_news_homepage" %}active{% endif %}"><a href="#">Se connecter</a></li>
         </ul>
     </div>
 </nav>

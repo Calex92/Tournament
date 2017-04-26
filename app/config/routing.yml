@@ -1,6 +1,10 @@
+mgd_event:
+    resource: "@MGDEventBundle/Resources/config/routing.yml"
+    prefix:   /events
+
 mgd_news:
     resource: "@MGDNewsBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /news
 
 app:
     resource: '@AppBundle/Controller/'
