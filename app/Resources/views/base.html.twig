@@ -17,15 +17,14 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <ul class="nav navbar-nav">
-            <li class="{% if path(app.request.attributes.get('_route')) == path("mgd_news_homepage") %}active{% endif %}">
-                <a href="{{ path('mgd_news_homepage') }}">News</a></li>
-            <li class="{% if path(app.request.attributes.get('_route')) == path("mgd_event_homepage") %}active{% endif %}">
-                <a href="{{ path('mgd_event_homepage') }}">Evénements</a></li>
-            <li class="{% if path(app.request.attributes.get('_route')) == path("fos_user_security_login") %}active{% endif %}">
-                <a href="{{ path('fos_user_security_login') }}">Se connecter</a></li>
+            {% for menu in getMenu() %}
+                <li class="{% if path(app.request.attributes.get('_route')) == path(menu.route) %}active{% endif %}">
+                    <a href="{{ path(menu.route) }}">{{ menu.label }}</a></li>
+            {% endfor %}
         </ul>
     </div>
 </nav>
+
 <div class="container">
     <div class="main-content">
         {% block body %}
