@@ -41,6 +41,18 @@ class AppExtension extends \Twig_Extension
         }
         //If the user is logged
         else {
+            $menus[] = array("route" => "mgd_admin_user_homepage",
+                "label" => "Administration",
+                "routes"    => array("mgd_admin_user_homepage", "mgd_admin_user_homepage", "mgd_admin_user_homepage"),
+                "children" => array(
+                    array("route" => "mgd_admin_user_homepage",
+                        "label" => "Utilisateurs"),
+                    array("route" => "mgd_admin_user_homepage",
+                        "label" => "News"),
+                    array("route" => "mgd_admin_user_homepage",
+                        "label" => "Tournois")
+                ));
+
             $menus[] = array("route" => "fos_user_security_logout",
                 "label" => "Se déconnecter");
         }

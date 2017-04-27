@@ -18,8 +18,25 @@
     <div class="container-fluid">
         <ul class="nav navbar-nav">
             {% for menu in getMenu() %}
-                <li class="{% if path(app.request.attributes.get('_route')) == path(menu.route) %}active{% endif %}">
-                    <a href="{{ path(menu.route) }}">{{ menu.label }}</a></li>
+                {% if menu.children is defined %}
+                    <li class="dropdown {% if app.request.attributes.get('_route') in menu.routes %}active{% endif %}">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">{{ menu.label }}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {% for childrenMenu in menu.children %}
+                                <li class="{% if path(app.request.attributes.get('_route')) == path(childrenMenu.route) %}active{% endif %}">
+                                    <a href="{{ path(childrenMenu.route) }}">
+                                        {{ childrenMenu.label }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="{% if path(app.request.attributes.get('_route')) == path(menu.route) %}active{% endif %}">
+                        <a href="{{ path(menu.route) }}">{{ menu.label }}</a>
+                    </li>
+                {% endif %}
             {% endfor %}
         </ul>
     </div>

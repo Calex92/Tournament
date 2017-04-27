@@ -6,6 +6,10 @@ mgd_user:
     resource: "@MGDUserBundle/Resources/config/routing.yml"
     prefix:   /
 
+mgd_admin:
+    resource: "@MGDAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
 mgd_event:
     resource: "@MGDEventBundle/Resources/config/routing.yml"
     prefix:   /events
