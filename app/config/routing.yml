@@ -4,6 +4,7 @@ sg_datatables_bundle:
 
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+    methods:   ["GET"]
 
 app:
     resource: '@AppBundle/Controller/'

@@ -19,7 +19,7 @@ class TournamentManager
      */
     private $em;
 
-    function __construct(EntityManager $em)
+    public function __construct(EntityManager $em)
     {
         $this->em = $em;
     }
