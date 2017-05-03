@@ -1,4 +1,5 @@
 {
+    "description": "Small project I use to learn Symfony3 and multiple bundles",
     "name": "acastelain/tournament",
     "license": "proprietary",
     "type": "project",
