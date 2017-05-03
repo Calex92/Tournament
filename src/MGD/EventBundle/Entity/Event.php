@@ -8,11 +8,10 @@ use MGD\UserBundle\Entity\User;
 /**
  * Event
  *
- * @ORM\Entity(repositoryClass="MGD\EventBundle\Repository\EventRepository")
+ * @ORM\Entity()
  * @ORM\InheritanceType("JOINED")
  * @ORM\Table(name="event")
  * @ORM\DiscriminatorColumn(name="discriminator", type="string")
- * @ORM\DiscriminatorMap({"Tournament" = "Tournament", "Discovery" = "Discovery"})
  */
 abstract class Event
 {

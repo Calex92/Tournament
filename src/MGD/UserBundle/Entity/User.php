@@ -5,6 +5,8 @@ namespace MGD\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use MGD\EventBundle\Entity\Event;
+use MGD\EventBundle\Entity\Team;
+use MGD\EventBundle\Entity\TournamentSolo;
 
 /**
  * User
@@ -43,6 +45,20 @@ class User extends BaseUser
      * @ORM\ManyToMany(targetEntity="MGD\EventBundle\Entity\Event", inversedBy="responsibles")
      */
     private $managedEvents;
+
+    /**
+     * @var Team[]
+     *
+     * @ORM\ManyToMany(targetEntity="MGD\EventBundle\Entity\Team", inversedBy="players")
+     */
+    private $teams;
+
+    /**
+     * @var TournamentSolo[]
+     *
+     * @ORM\ManyToMany(targetEntity="MGD\EventBundle\Entity\TournamentSolo", inversedBy="players")
+     */
+    private $tournamentSolo;
 
     /**
      * Get id
@@ -102,6 +118,37 @@ class User extends BaseUser
         $this->managedEvents = $managedEvents;
     }
 
+    /**
+     * @return Team[]
+     */
+    public function getTeams()
+    {
+        return $this->teams;
+    }
+
+    /**
+     * @param Team[] $teams
+     */
+    public function setTeams($teams)
+    {
+        $this->teams = $teams;
+    }
+
+    /**
+     * @return TournamentSolo[]
+     */
+    public function getTournamentSolo()
+    {
+        return $this->tournamentSolo;
+    }
+
+    /**
+     * @param TournamentSolo[] $tournamentSolo
+     */
+    public function setTournamentSolo($tournamentSolo)
+    {
+        $this->tournamentSolo = $tournamentSolo;
+    }
 
 }
 

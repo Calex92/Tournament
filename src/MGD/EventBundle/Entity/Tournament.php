@@ -8,9 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
  * Tournament
  *
  * @ORM\Table(name="tournament")
- * @ORM\Entity(repositoryClass="MGD\EventBundle\Repository\TournamentRepository")
+ * @ORM\Entity()
+ * @ORM\InheritanceType("JOINED")
  */
-class Tournament extends Event
+abstract class Tournament extends Event
 {
     /**
      * @var int
