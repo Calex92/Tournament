@@ -9,16 +9,14 @@
 namespace MGD\EventBundle\Controller;
 
 
-use MGD\EventBundle\Entity\TournamentSolo;
+use MGD\EventBundle\Entity\Tournament;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class TournamentController extends Controller
 {
     public function viewAction($id) {
-        if ($id > 0)
-            $tournament = null;
-        else
-            $tournament = new TournamentSolo();
+        /** @var Tournament $tournament */
+        $tournament = $this->get("mgd_event.tournament_manager")->getTournament($id);
 
         return $this->render("MGDEventBundle:Tournament:view.html.twig", array(
             "tournament" => $tournament

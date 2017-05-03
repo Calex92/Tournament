@@ -3,12 +3,14 @@
 namespace MGD\EventBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
 
 /**
  * Tournament
  *
  * @ORM\Table(name="tournament")
  * @ORM\Entity()
+ * @DiscriminatorColumn(name="discriminator", type="string")
  * @ORM\InheritanceType("JOINED")
  */
 abstract class Tournament extends Event

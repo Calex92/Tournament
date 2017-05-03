@@ -10,10 +10,11 @@ namespace MGD\EventBundle\DataFixtures\ORM;
 
 
 use AppBundle\DataFixtures\ORM\LoadObject;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use MGD\EventBundle\Entity\Discovery;
 
-class LoadDiscovery extends LoadObject
+class LoadDiscovery extends LoadObject implements OrderedFixtureInterface
 {
     /**
      * Load data fixtures with the passed EntityManager
@@ -32,5 +33,15 @@ class LoadDiscovery extends LoadObject
 
         $manager->persist($discovery);
         $manager->flush();
+    }
+
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return 2;
     }
 }

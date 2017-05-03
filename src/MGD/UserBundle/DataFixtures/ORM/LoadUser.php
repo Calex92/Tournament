@@ -10,10 +10,11 @@ namespace MGD\UserBundle\DataFixtures\ORM;
 
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use MGD\UserBundle\Entity\User;
 
-class LoadUser extends AbstractFixture
+class LoadUser extends AbstractFixture implements OrderedFixtureInterface
 {
 
     /**
@@ -32,5 +33,17 @@ class LoadUser extends AbstractFixture
 
         $manager->persist($user);
         $manager->flush();
+
+        $this->addReference("user", $user);
+    }
+
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return 1;
     }
 }
