@@ -13,5 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 class Discovery extends Event
 {
 
+    public function getRoute()
+    {
+        return "mgd_event_homepage";
+    }
 }
 

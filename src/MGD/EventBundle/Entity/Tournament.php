@@ -36,4 +36,8 @@ class Tournament extends Event
     }
 
 
+    public function getRoute()
+    {
+        return "mgd_event_homepage";
+    }
 }

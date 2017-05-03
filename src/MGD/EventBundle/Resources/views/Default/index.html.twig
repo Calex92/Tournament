@@ -4,7 +4,7 @@
         {% for event in events %}
         <div class="col-md-6 margin-top-15 margin-bottom-15 thumbnail-event">
             <a href="{{ path(event.route) }}" class="col-md-10 col-md-offset-1 no-padding">
-                <img src="{{ event.image }}">
+                <img src="{{ event.cover }}">
                 <label>{{ event.title }}</label>
             </a>
         </div>

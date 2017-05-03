@@ -69,6 +69,13 @@ abstract class Event
     private $responsibles;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="cover", type="string")
+     */
+    private $cover;
+
+    /**
      * Get id
      *
      * @return int
@@ -190,6 +197,22 @@ abstract class Event
         $this->responsibles = $responsibles;
     }
 
+    /**
+     * @return string
+     */
+    public function getCover()
+    {
+        return $this->cover;
+    }
 
+    /**
+     * @param string $cover
+     */
+    public function setCover($cover)
+    {
+        $this->cover = $cover;
+    }
+
+    abstract public function getRoute();
 }
 

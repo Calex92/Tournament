@@ -28,6 +28,7 @@ class LoadDiscovery extends LoadObject
         $discovery->setCreationDate(new \DateTime());
         $discovery->setStartDate(new \DateTime("+25d"));
         $discovery->setEndDate(new \DateTime("+30d"));
+        $discovery->setCover("http://placehold.it/400x250");
 
         $manager->persist($discovery);
         $manager->flush();

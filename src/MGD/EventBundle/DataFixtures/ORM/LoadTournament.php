@@ -29,6 +29,7 @@ class LoadTournament extends LoadObject
         $tournament->setCreationDate(new \DateTime());
         $tournament->setStartDate(new \DateTime("+4d"));
         $tournament->setEndDate(new \DateTime("+5d"));
+        $tournament->setCover("http://placehold.it/400x250");
 
         $manager->persist($tournament);
         $manager->flush();
