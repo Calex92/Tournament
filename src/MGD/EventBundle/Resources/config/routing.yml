@@ -1,3 +1,18 @@
+mdg_tournament_view:
+    path:    /tournament/{id}
+    defaults: { _controller: MGDEventBundle:Tournament:view }
+    requirements:
+        id:    \d*
+    methods:   ["GET"]
+
+mdg_discovery_view:
+    path:    /discovery/{id}
+    defaults: { _controller: MGDEventBundle:Discovery:view }
+    requirements:
+        id:    \d*
+    methods:   ["GET"]
+
 mgd_event_homepage:
     path:     /
     defaults: { _controller: MGDEventBundle:Default:index }
+

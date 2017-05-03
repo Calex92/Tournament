@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <div class="col-md-7">
+        <h1>{{ discovery.title }}</h1>
+        <a href="#" class="btn btn-success pull-right">S'inscrire</a>
+    </div>
+    <div class="col-md-5">
+        <img src="{{ discovery.cover }}" title="{{ discovery.title }}" width="100%">
+    </div>
+    <div class="col-md-12">
+        <h2>Description de l'événement</h2>
+
+        {{ discovery.description|raw }}
+    </div>
+    <div class="clearfix"></div>
+{% endblock %}

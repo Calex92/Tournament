@@ -15,7 +15,7 @@ class Discovery extends Event
 
     public function getRoute()
     {
-        return "mgd_event_homepage";
+        return "mdg_discovery_view";
     }
 }
 
