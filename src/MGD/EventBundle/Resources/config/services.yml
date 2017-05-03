@@ -1,4 +1,15 @@
 services:
+    mgd_event.route_generator:
+        class:     MGD\EventBundle\Twig\AppExtension
+        public:    false
+        arguments: ["@router"]
+        tags:
+            - { name: twig.extension }
+
+    mgd_event.tournament_manager:
+        class:    MGD\EventBundle\Manager\TournamentManager
+        arguments: ['@doctrine.orm.entity_manager']
+
 #    mgd_event.example:
 #        class: MGD\EventBundle\Example
 #        arguments: ["@service_id", "plain_value", "%parameter%"]

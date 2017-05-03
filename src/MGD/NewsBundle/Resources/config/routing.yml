@@ -1,3 +1,4 @@
 mgd_news_homepage:
     path:     /
     defaults: { _controller: MGDNewsBundle:Default:index }
+    methods: ["GET"]

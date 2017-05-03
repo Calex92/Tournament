@@ -1,4 +1,5 @@
 {
+    "description": "Small project I use to learn Symfony3 and multiple bundles",
     "name": "acastelain/tournament",
     "license": "proprietary",
     "type": "project",
@@ -36,6 +37,7 @@
         "sg/datatablesbundle": "dev-master"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^2.3",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"
     },

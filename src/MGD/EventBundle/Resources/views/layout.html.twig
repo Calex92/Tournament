@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="col-md-7">
+        <h1 class="text-center">{{ event.title }}</h1>
+        {% block action_body %}
+        {% endblock %}
+    </div>
+    <div class="col-md-5">
+        <img src="{{ event.cover }}" title="{{ event.title }}" width="100%">
+    </div>
+    <div class="col-md-12">
+        <h2>Description de l'événement</h2>
+
+        {{ event.description|raw }}
+    </div>
+
+    <div class="col-md-12">
+        {% block more_info %}
+        {% endblock %}
+    </div>
+    <div class="clearfix"></div>
+{% endblock %}

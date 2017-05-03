@@ -30,7 +30,7 @@
                            aria-expanded="false">{{ menu.label }}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             {% for childrenMenu in menu.children %}
-                                <li class="{% if path(app.request.attributes.get('_route')) == path(childrenMenu.route) %}active{% endif %}">
+                                <li class="{% if app.request.attributes.get('_route') == childrenMenu.route %}active{% endif %}">
                                     <a href="{{ path(childrenMenu.route) }}">
                                         {{ childrenMenu.label }}
                                     </a>
@@ -39,7 +39,7 @@
                         </ul>
                     </li>
                 {% else %}
-                    <li class="{% if path(app.request.attributes.get('_route')) == path(menu.route) %}active{% endif %}">
+                    <li class="{% if app.request.attributes.get('_route') == menu.route %}active{% endif %}">
                         <a href="{{ path(menu.route) }}">{{ menu.label }}</a>
                     </li>
                 {% endif %}

@@ -4,11 +4,13 @@
     <a href="{{ path("fos_user_registration_register") }}" class="btn btn-success">Pas encore inscrit?</a>
 </div>
 
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
 
 <div class="col-sm-6 text-center">
+    {% if error %}
+        <div class="alert alert-danger col-md-12 text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <div class="clearfix"></div>
+
     <form action="{{ path("fos_user_security_check") }}" method="post">
         {% if csrf_token %}
             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
@@ -17,7 +19,8 @@
         <div class="form-group flex">
             <label for="username" class="col-sm-4 control-label">{{ 'security.login.username'|trans }}</label>
             <div class="col-sm-8">
-                <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control"/>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" required="required"
+                       class="form-control"/>
             </div>
         </div>
 
@@ -28,15 +31,18 @@
             </div>
         </div>
 
-        <div class="col-md-12 margin-top-10 flex">
-            <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-primary" style="width: 100%"/>
+        <div class="col-md-12 flex">
+            <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}"
+                   class="btn btn-primary" style="width: 100%"/>
         </div>
-        <div class="col-md-6 margin-top-10 flex">
-            <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
-            <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+        <div class="col-md-6 margin-top-10 checkbox">
+            <label for="remember_me">
+                <input type="checkbox" id="remember_me" name="_remember_me"/>
+                {{ 'security.login.remember_me'|trans }}
+            </label>
         </div>
-        <div class="col-md-6 margin-top-10 flex">
-            <a href="{{ path("fos_user_resetting_request") }}" class="pull-right">Mot de passe oublié</a>
+        <div class="col-md-6 margin-top-10">
+            <a href="{{ path("fos_user_resetting_request") }}">Mot de passe oublié</a>
         </div>
     </form>
 
