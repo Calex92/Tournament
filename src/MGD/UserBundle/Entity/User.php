@@ -4,6 +4,7 @@ namespace MGD\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use MGD\EventBundle\Entity\Event;
 
 /**
  * User
@@ -36,6 +37,12 @@ class User extends BaseUser
      */
     private $lastname;
 
+    /**
+     * @var Event[]
+     *
+     * @ORM\ManyToMany(targetEntity="MGD\EventBundle\Entity\Event", inversedBy="responsibles")
+     */
+    private $managedEvents;
 
     /**
      * Get id
@@ -78,6 +85,23 @@ class User extends BaseUser
     {
         $this->lastname = $lastname;
     }
+
+    /**
+     * @return Event[]
+     */
+    public function getManagedEvents()
+    {
+        return $this->managedEvents;
+    }
+
+    /**
+     * @param Event[] $managedEvents
+     */
+    public function setManagedEvents($managedEvents)
+    {
+        $this->managedEvents = $managedEvents;
+    }
+
 
 }
 
