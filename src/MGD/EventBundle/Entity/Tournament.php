@@ -46,4 +46,6 @@ abstract class Tournament extends Event
     {
         return "mdg_tournament_view";
     }
+
+    public abstract function getTemplateName();
 }

@@ -35,5 +35,8 @@ class TournamentTeam extends Tournament
         $this->teams = $teams;
     }
 
-
+    public function getTemplateName()
+    {
+        return "view_team.html.twig";
+    }
 }

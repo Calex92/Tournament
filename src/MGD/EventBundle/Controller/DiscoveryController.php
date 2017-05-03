@@ -16,7 +16,7 @@ class DiscoveryController extends Controller
 {
     public function viewAction(Discovery $discovery) {
         return $this->render("@MGDEvent/Discovery/view.html.twig", array(
-            "discovery" => $discovery
+            "event" => $discovery
         ));
     }
 }

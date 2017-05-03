@@ -18,8 +18,8 @@ class TournamentController extends Controller
         /** @var Tournament $tournament */
         $tournament = $this->get("mgd_event.tournament_manager")->getTournament($id);
 
-        return $this->render("MGDEventBundle:Tournament:view.html.twig", array(
-            "tournament" => $tournament
+        return $this->render("MGDEventBundle:Tournament:" . $tournament->getTemplateName(), array(
+            "event" => $tournament
         ));
     }
 }

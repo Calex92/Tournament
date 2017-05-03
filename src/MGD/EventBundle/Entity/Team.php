@@ -36,6 +36,29 @@ class Team
      */
     private $players;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="team_size", type="integer")
+     */
+    private $teamSize;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string")
+     */
+    private $name;
+
+    /**
+     * Team constructor.
+     * @param int $teamSize
+     */
+    public function __construct($teamSize)
+    {
+        $this->teamSize = $teamSize;
+    }
+
 
     /**
      * Get id
@@ -79,6 +102,27 @@ class Team
         $this->players = $players;
     }
 
+    /**
+     * @return int
+     */
+    public function getTeamSize()
+    {
+        return $this->teamSize;
+    }
 
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 }
-

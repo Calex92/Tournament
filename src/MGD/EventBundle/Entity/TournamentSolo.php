@@ -35,4 +35,9 @@ class TournamentSolo extends Tournament
     {
         $this->players = $players;
     }
+
+    public function getTemplateName()
+    {
+        return "view_solo.html.twig";
+    }
 }
