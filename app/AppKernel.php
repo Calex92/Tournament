@@ -22,7 +22,8 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new MGD\AdminBundle\MGDAdminBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new Sg\DatatablesBundle\SgDatatablesBundle()
+            new Sg\DatatablesBundle\SgDatatablesBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
