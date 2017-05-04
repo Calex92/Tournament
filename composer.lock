@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8f007a388e5725690444efe5ea9e0f83",
+    "content-hash": "ce66960d3ba8d26652f55586fd916007",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -894,16 +894,16 @@
         },
         {
             "name": "friendsofsymfony/user-bundle",
-            "version": "dev-master",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "730a8a5f6633ae913a838d26b1c7156faa6ed697"
+                "reference": "2e0243e9e8a3ca0dab753fc5f2e79b4b3093ac9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/730a8a5f6633ae913a838d26b1c7156faa6ed697",
-                "reference": "730a8a5f6633ae913a838d26b1c7156faa6ed697",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/2e0243e9e8a3ca0dab753fc5f2e79b4b3093ac9a",
+                "reference": "2e0243e9e8a3ca0dab753fc5f2e79b4b3093ac9a",
                 "shasum": ""
             },
             "require": {
@@ -967,7 +967,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2017-04-21 12:31:59"
+            "time": "2017-03-29T13:21:34+00:00"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1581,17 +1581,17 @@
         },
         {
             "name": "sg/datatablesbundle",
-            "version": "dev-master",
+            "version": "v1.0-beta1",
             "target-dir": "Sg/DatatablesBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stwe/DatatablesBundle.git",
-                "reference": "050fc7926982104d0fb99cd87e9dba4cde33290c"
+                "reference": "809e228a97cd5667428d5d08bfa1ac85f82008d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stwe/DatatablesBundle/zipball/050fc7926982104d0fb99cd87e9dba4cde33290c",
-                "reference": "050fc7926982104d0fb99cd87e9dba4cde33290c",
+                "url": "https://api.github.com/repos/stwe/DatatablesBundle/zipball/809e228a97cd5667428d5d08bfa1ac85f82008d8",
+                "reference": "809e228a97cd5667428d5d08bfa1ac85f82008d8",
                 "shasum": ""
             },
             "require": {
@@ -1633,7 +1633,7 @@
                 "symfony3",
                 "table"
             ],
-            "time": "2017-04-28 18:46:49"
+            "time": "2017-04-16T21:29:55+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2629,8 +2629,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "friendsofsymfony/user-bundle": 20,
-        "sg/datatablesbundle": 20
+        "sg/datatablesbundle": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
