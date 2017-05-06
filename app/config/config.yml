@@ -78,3 +78,9 @@ fos_user:
     from_email:
             address:    alexandre.castelain@orexad.com
             sender_name:    'Mouscron Gaming Days'
+
+knp_menu:
+    twig:
+        template: KnpMenuBundle::menu.html.twig
+    templating: false
+    default_renderer: twig

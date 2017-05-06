@@ -22,29 +22,7 @@
 <img src="http://placehold.it/1500x100" width="100%"/>
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <ul class="nav navbar-nav">
-            {% for menu in getMenu() %}
-                {% if menu.children is defined %}
-                    <li class="dropdown {% if app.request.attributes.get('_route') in menu.routes %}active{% endif %}">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">{{ menu.label }}<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            {% for childrenMenu in menu.children %}
-                                <li class="{% if app.request.attributes.get('_route') == childrenMenu.route %}active{% endif %}">
-                                    <a href="{{ path(childrenMenu.route) }}">
-                                        {{ childrenMenu.label }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </li>
-                {% else %}
-                    <li class="{% if app.request.attributes.get('_route') == menu.route %}active{% endif %}">
-                        <a href="{{ path(menu.route) }}">{{ menu.label }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
+        {{ knp_menu_render('main', {'currentClass': 'active', 'allow_safe_labels': true}) }}
     </div>
 </nav>
 
