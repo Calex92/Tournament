@@ -37,7 +37,7 @@ class Builder
         $menu = $this->factory->createItem("root");
         $menu->setChildrenAttribute('class', 'nav navbar-nav');
 
-        $menu->addChild("News", array("route" => "mgd_news_homepage"));
+        $menu->addChild("News", array("route" => "mgd_news_index"));
         $menu->addChild("Evénements", array("route" => "mgd_event_homepage"));
 
 

@@ -16,14 +16,8 @@ abstract class LoadObject extends AbstractFixture
         if (!is_integer($numberParagraphs)) {
             $numberParagraphs = 5;
         }
-        $aContext = array(
-            'http' => array(
-                'proxy' => 'tcp://10.241.2.3:3129',
-                'request_fulluri' => true,
-            ),
-        );
-        $cxContext = stream_context_create($aContext);
 
-        return file_get_contents('http://www.loripsum.net/api/' . $numberParagraphs . '/decorate/link/ol', false, $cxContext);
+
+        return file_get_contents('http://www.loripsum.net/api/' . $numberParagraphs . '/decorate/link/ol', false);
     }
 }

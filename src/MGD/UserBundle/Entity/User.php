@@ -7,6 +7,7 @@ use FOS\UserBundle\Model\User as BaseUser;
 use MGD\EventBundle\Entity\Event;
 use MGD\EventBundle\Entity\Team;
 use MGD\EventBundle\Entity\TournamentSolo;
+use MGD\NewsBundle\Entity\News;
 
 /**
  * User
@@ -59,6 +60,13 @@ class User extends BaseUser
      * @ORM\ManyToMany(targetEntity="MGD\EventBundle\Entity\TournamentSolo", inversedBy="players")
      */
     private $tournamentSolo;
+
+    /**
+     * @var News[]
+     *
+     * @ORM\OneToMany(targetEntity="MGD\NewsBundle\Entity\News", mappedBy="author", cascade={"remove"})
+     */
+    private $news;
 
     /**
      * Get id
@@ -149,6 +157,23 @@ class User extends BaseUser
     {
         $this->tournamentSolo = $tournamentSolo;
     }
+
+    /**
+     * @return News[]
+     */
+    public function getNews()
+    {
+        return $this->news;
+    }
+
+    /**
+     * @param News[] $news
+     */
+    public function setNews($news)
+    {
+        $this->news = $news;
+    }
+
 
 }
 
