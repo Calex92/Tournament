@@ -4,9 +4,8 @@ parameters:
     #parameter_name: value
 
 services:
-    app.twig_extension:
-        class: AppBundle\Twig\AppExtension
-        public: false
-        arguments: ["@security.authorization_checker"]
+    app.menu_builder:
+        class: AppBundle\Menu\Builder
+        arguments: ["@knp_menu.factory", "@security.authorization_checker"]
         tags:
-            - { name: twig.extension }
+            - { name: knp_menu.menu_builder, method: createMainMenu, alias: main }

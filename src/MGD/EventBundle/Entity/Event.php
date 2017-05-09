@@ -3,14 +3,17 @@
 namespace MGD\EventBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use MGD\UserBundle\Entity\User;
 
 /**
  * Event
  *
+ * @ORM\Entity()
+ * @ORM\InheritanceType("JOINED")
  * @ORM\Table(name="event")
- * @ORM\Entity(repositoryClass="MGD\EventBundle\Repository\EventRepository")
+ * @ORM\DiscriminatorColumn(name="discriminator", type="string")
  */
-class Event
+abstract class Event
 {
     /**
      * @var int
@@ -35,6 +38,41 @@ class Event
      */
     private $creationDate;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="startDate", type="datetime")
+     */
+    private $startDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="endDate", type="datetime")
+     */
+    private $endDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+    /**
+     * @var User[]
+     *
+     * @ORM\ManyToMany(targetEntity="MGD\UserBundle\Entity\User", mappedBy="managedEvents")
+     *
+     */
+    private $responsibles;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cover", type="string")
+     */
+    private $cover;
 
     /**
      * Get id
@@ -93,5 +131,87 @@ class Event
     {
         return $this->creationDate;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * @param \DateTime $startDate
+     */
+    public function setStartDate($startDate)
+    {
+        $this->startDate = $startDate;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
+
+    /**
+     * @param \DateTime $endDate
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return User[]
+     */
+    public function getResponsibles()
+    {
+        return $this->responsibles;
+    }
+
+    /**
+     * @param User[] $responsibles
+     */
+    public function setResponsibles($responsibles)
+    {
+        $this->responsibles = $responsibles;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCover()
+    {
+        return $this->cover;
+    }
+
+    /**
+     * @param string $cover
+     */
+    public function setCover($cover)
+    {
+        $this->cover = $cover;
+    }
+
+    abstract public function getRoute();
 }
 

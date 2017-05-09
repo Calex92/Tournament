@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>News</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ news.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ news.title }}</td>
+            </tr>
+            <tr>
+                <th>Body</th>
+                <td>{{ news.body }}</td>
+            </tr>
+            <tr>
+                <th>Creationdate</th>
+                <td>{% if news.creationDate %}{{ news.creationDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('mgd_news_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}

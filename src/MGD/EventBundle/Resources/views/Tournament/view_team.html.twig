@@ -1,0 +1,18 @@
+{% extends "@MGDEvent/layout.html.twig" %}
+{# @var event \MGD\EventBundle\Entity\TournamentTeam #}
+{% block action_body %}
+    <div class="row text-center padding-top-20 ">
+        <a href="#" class="btn btn-success margin-right-20">Créer une équipe</a>
+        <a href="#" class="btn btn-primary">Rejoindre une équipe</a>
+    </div>
+{% endblock %}
+
+{% block more_info %}
+    <h2>Les équipes inscrites</h2>
+
+    {% for team in event.teams %}
+        {{ team.name }}
+    {% else %}
+        Aucune équipe inscrite jusqu'à présent : <a href="#">soyez le premier à créer votre équipe</a>!
+    {% endfor %}
+{% endblock %}

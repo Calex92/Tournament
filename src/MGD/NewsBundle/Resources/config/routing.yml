@@ -1,3 +1,9 @@
-mgd_news_homepage:
+mgd_news_index:
     path:     /
-    defaults: { _controller: MGDNewsBundle:Default:index }
+    defaults: { _controller: "MGDNewsBundle:News:index" }
+    methods:  GET
+
+mgd_news_show:
+    path:     /{id}/show
+    defaults: { _controller: "MGDNewsBundle:News:show" }
+    methods:  GET

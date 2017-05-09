@@ -1,3 +1,4 @@
 mgd_admin_user_homepage:
     path:     /users
     defaults: { _controller: MGDAdminBundle:User:index }
+    methods:   ["GET"]
