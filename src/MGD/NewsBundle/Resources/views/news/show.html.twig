@@ -1,32 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>News</h1>
+    <div class="col-md-12">
+        {% if news.cover %}
+        <div class="pull-right col-md-5">
+            <img src="{{ news.cover }}" title="{{ news.title }}" width="100%">
+        </div>
+        {% endif %}
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ news.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ news.title }}</td>
-            </tr>
-            <tr>
-                <th>Body</th>
-                <td>{{ news.body }}</td>
-            </tr>
-            <tr>
-                <th>Creationdate</th>
-                <td>{% if news.creationDate %}{{ news.creationDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-        </tbody>
-    </table>
+        <h1 class="text-center">{{ news.title }}</h1>
+        {{ news.body|raw }}
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('mgd_news_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <div class="clearfix"></div>
 {% endblock %}

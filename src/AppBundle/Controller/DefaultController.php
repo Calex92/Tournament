@@ -13,6 +13,6 @@ class DefaultController extends Controller
     public function indexAction()
     {
         // replace this example code with whatever you need
-        return $this->redirect($this->generateUrl("mgd_news_homepage"));
+        return $this->redirect($this->generateUrl("mgd_news_index"));
     }
 }

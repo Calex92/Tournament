@@ -36,7 +36,7 @@ class LoadNews extends LoadObject implements OrderedFixtureInterface
                 "title" => "Titre 2",
                 "body"  => $this->getLoremIpsum(3),
                 "creationDate"  => new \DateTime(),
-                "image"         => "http://placehold.it/500x1500"
+                "image"         => "http://placehold.it/500x350"
             ),
             array(
                 "title" => "Titre 3",
