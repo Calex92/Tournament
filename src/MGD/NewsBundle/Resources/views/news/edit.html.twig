@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Editer une news</h1>
+
+    {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <input class="btn btn-primary pull-right" type="submit" value="Edit" />
+    {{ form_end(edit_form) }}
+
+    <a class="btn btn-default pull-right margin-right-15" href="{{ path('mgd_news_index') }}">Back to the list</a>
+
+    <div class="clearfix"></div>
+{% endblock %}

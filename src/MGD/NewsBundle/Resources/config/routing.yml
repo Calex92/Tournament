@@ -3,7 +3,23 @@ mgd_news_index:
     defaults: { _controller: "MGDNewsBundle:News:index" }
     methods:  GET
 
+mgd_news_list:
+    path:     /list
+    defaults: { _controller: "MGDNewsBundle:News:list" }
+    methods:  GET
+
 mgd_news_show:
     path:     /{id}/show
     defaults: { _controller: "MGDNewsBundle:News:show" }
     methods:  GET
+
+mgd_news_new:
+    path:     /new
+    defaults: { _controller: "MGDNewsBundle:News:new" }
+    methods:  [GET, POST]
+
+mgd_news_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "MGDNewsBundle:News:edit" }
+    methods:  [GET, POST]
+

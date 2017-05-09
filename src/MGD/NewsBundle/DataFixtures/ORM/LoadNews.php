@@ -30,18 +30,32 @@ class LoadNews extends LoadObject implements OrderedFixtureInterface
                 "title" => "Titre 1",
                 "body"  => $this->getLoremIpsum(5),
                 "creationDate"  => new \DateTime(),
+                "visible"       => true,
+                "publicationDate"   => new \DateTime(),
                 "image"         => "http://placehold.it/200x150"
             ),
             array(
                 "title" => "Titre 2",
                 "body"  => $this->getLoremIpsum(3),
                 "creationDate"  => new \DateTime(),
+                "visible"       => true,
+                "publicationDate"   => new \DateTime(),
                 "image"         => "http://placehold.it/500x350"
             ),
             array(
                 "title" => "Titre 3",
                 "body"  => $this->getLoremIpsum(10),
                 "creationDate"  => new \DateTime(),
+                "visible"       => true,
+                "publicationDate"   => new \DateTime(),
+                "image"         => null
+            ),
+            array(
+                "title" => "Titre 4",
+                "body"  => $this->getLoremIpsum(10),
+                "creationDate"  => new \DateTime(),
+                "visible"       => false,
+                "publicationDate"   => new \DateTime(),
                 "image"         => null
             ),
         );
@@ -54,6 +68,8 @@ class LoadNews extends LoadObject implements OrderedFixtureInterface
                 ->setBody($newsItem["body"])
                 ->setCreationDate($newsItem["creationDate"])
                 ->setCover($newsItem["image"])
+                ->setVisible($newsItem["visible"])
+                ->setPublicationDate($newsItem["publicationDate"])
                 ->setAuthor($user);
 
             $manager->persist($news);

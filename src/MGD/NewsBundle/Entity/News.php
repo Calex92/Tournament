@@ -51,6 +51,20 @@ class News
     private $creationDate;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="publicationDate", type="datetime")
+     */
+    private $publicationDate;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="visible", type="boolean")
+     */
+    private $visible;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="cover", type="string", nullable=true)
@@ -180,4 +194,41 @@ class News
         $this->cover = $cover;
         return $this;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getPublicationDate()
+    {
+        return $this->publicationDate;
+    }
+
+    /**
+     * @param \DateTime $publicationDate
+     * @return $this
+     */
+    public function setPublicationDate($publicationDate)
+    {
+        $this->publicationDate = $publicationDate;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isVisible()
+    {
+        return $this->visible;
+    }
+
+    /**
+     * @param bool $visible
+     * @return $this
+     */
+    public function setVisible($visible)
+    {
+        $this->visible = $visible;
+        return $this;
+    }
+
 }

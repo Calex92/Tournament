@@ -56,7 +56,7 @@ class Builder
                     ->setChildrenAttribute("class", "dropdown-menu");
 
             $menu["Administration"]->addChild("Utilisateurs", array("route" => "mgd_admin_user_homepage"));
-            $menu["Administration"]->addChild("News", array("route" => "fos_user_security_login"));
+            $menu["Administration"]->addChild("News", array("route" => "mgd_news_list"));
             $menu["Administration"]->addChild("Tournois", array("route" => "fos_user_security_login"));
 
             $menu->addChild("Se déconnecter", array("route" => "fos_user_security_logout"));
