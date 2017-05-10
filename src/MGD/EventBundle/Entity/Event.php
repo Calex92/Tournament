@@ -34,21 +34,21 @@ abstract class Event
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="creationDate", type="datetime")
+     * @ORM\Column(name="creation_date", type="datetime")
      */
     private $creationDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="startDate", type="datetime")
+     * @ORM\Column(name="start_date", type="datetime")
      */
     private $startDate;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="endDate", type="datetime")
+     * @ORM\Column(name="end_date", type="datetime")
      */
     private $endDate;
 
@@ -73,6 +73,20 @@ abstract class Event
      * @ORM\Column(name="cover", type="string")
      */
     private $cover;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="start_publication_date", type="datetime")
+     */
+    private $startPublicationDate;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="end_publication_date", type="datetime")
+     */
+    private $endPublicationDate;
 
     /**
      * Get id
@@ -142,10 +156,12 @@ abstract class Event
 
     /**
      * @param \DateTime $startDate
+     * @return $this
      */
     public function setStartDate($startDate)
     {
         $this->startDate = $startDate;
+        return $this;
     }
 
     /**
@@ -158,10 +174,12 @@ abstract class Event
 
     /**
      * @param \DateTime $endDate
+     * @return $this
      */
     public function setEndDate($endDate)
     {
         $this->endDate = $endDate;
+        return $this;
     }
 
     /**
@@ -174,10 +192,12 @@ abstract class Event
 
     /**
      * @param string $description
+     * @return $this
      */
     public function setDescription($description)
     {
         $this->description = $description;
+        return $this;
     }
 
     /**
@@ -190,10 +210,12 @@ abstract class Event
 
     /**
      * @param User[] $responsibles
+     * @return $this
      */
     public function setResponsibles($responsibles)
     {
         $this->responsibles = $responsibles;
+        return $this;
     }
 
     /**
@@ -206,10 +228,48 @@ abstract class Event
 
     /**
      * @param string $cover
+     * @return $this
      */
     public function setCover($cover)
     {
         $this->cover = $cover;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getStartPublicationDate()
+    {
+        return $this->startPublicationDate;
+    }
+
+    /**
+     * @param \DateTime $startPublicationDate
+     * @return $this
+     */
+    public function setStartPublicationDate($startPublicationDate)
+    {
+        $this->startPublicationDate = $startPublicationDate;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEndPublicationDate()
+    {
+        return $this->endPublicationDate;
+    }
+
+    /**
+     * @param \DateTime $endPublicationDate
+     * @return $this
+     */
+    public function setEndPublicationDate($endPublicationDate)
+    {
+        $this->endPublicationDate = $endPublicationDate;
+        return $this;
     }
 
     abstract public function getRoute();

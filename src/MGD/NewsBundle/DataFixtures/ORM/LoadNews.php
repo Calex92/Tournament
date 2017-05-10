@@ -32,7 +32,8 @@ class LoadNews extends LoadObject implements OrderedFixtureInterface
                 "creationDate"  => new \DateTime(),
                 "visible"       => true,
                 "publicationDate"   => new \DateTime(),
-                "image"         => "http://placehold.it/200x150"
+                "image"         => "http://placehold.it/200x150",
+                "author"        => "Fontenelle"
             ),
             array(
                 "title" => "Titre 2",
@@ -40,7 +41,8 @@ class LoadNews extends LoadObject implements OrderedFixtureInterface
                 "creationDate"  => new \DateTime(),
                 "visible"       => true,
                 "publicationDate"   => new \DateTime(),
-                "image"         => "http://placehold.it/500x350"
+                "image"         => "http://placehold.it/500x350",
+                "author"        => "Fontenelle"
             ),
             array(
                 "title" => "Titre 3",
@@ -48,7 +50,8 @@ class LoadNews extends LoadObject implements OrderedFixtureInterface
                 "creationDate"  => new \DateTime(),
                 "visible"       => true,
                 "publicationDate"   => new \DateTime(),
-                "image"         => null
+                "image"         => null,
+                "author"        => "Doe"
             ),
             array(
                 "title" => "Titre 4",
@@ -56,13 +59,15 @@ class LoadNews extends LoadObject implements OrderedFixtureInterface
                 "creationDate"  => new \DateTime(),
                 "visible"       => false,
                 "publicationDate"   => new \DateTime(),
-                "image"         => null
+                "image"         => null,
+                "author"        => "Doe"
             ),
         );
 
-        /** @var User $user */
-        $user = $this->getReference("user");
         foreach ($listNews as $newsItem) {
+            /** @var User $user */
+            $user = $this->getReference($newsItem["author"]);
+
             $news = new News();
             $news->setTitle($newsItem["title"])
                 ->setBody($newsItem["body"])

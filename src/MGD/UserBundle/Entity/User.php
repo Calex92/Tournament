@@ -174,6 +174,18 @@ class User extends BaseUser
         $this->news = $news;
     }
 
+    /**
+     * @param string $email
+     * @return $this
+     */
+    public function setEmail($email)
+    {
+        parent::setEmail($email);
+        $this->username = $email;
+
+        return $this;
+    }
+
 
 }
 

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: acastelain
  * Date: 03/05/2017
- * Time: 10:04
+ * Time: 09:56
  */
 
 namespace MGD\EventBundle\DataFixtures\ORM;
@@ -12,9 +12,9 @@ namespace MGD\EventBundle\DataFixtures\ORM;
 use AppBundle\DataFixtures\ORM\LoadObject;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use MGD\EventBundle\Entity\Discovery;
+use MGD\EventBundle\Entity\TournamentTeam;
 
-class LoadDiscovery extends LoadObject implements OrderedFixtureInterface
+class LoadTournamentTeam extends LoadObject implements OrderedFixtureInterface
 {
     /**
      * Load data fixtures with the passed EntityManager
@@ -24,15 +24,15 @@ class LoadDiscovery extends LoadObject implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $titles = array(
-            "Découverte jeu de rôle",
-            "Découverte jeu de plateau",
-            "Petit déjeuner lecture"
+            "Tournoi League of Legends",
+            "Tournoi CS:GO",
+            "Tournoi Overwatch"
         );
 
         $descriptions = array(
-            $this->getLoremIpsum(2),
-            $this->getLoremIpsum(4),
-            $this->getLoremIpsum(6)
+            $this->getLoremIpsum(5),
+            $this->getLoremIpsum(10),
+            $this->getLoremIpsum(15)
         );
 
         $startPublicationDates = array(
@@ -66,14 +66,20 @@ class LoadDiscovery extends LoadObject implements OrderedFixtureInterface
         );
 
         $responsibleNames = array(
-            array("Doe", "Michel"),
+            array("Doe"),
             array("Fontenelle"),
             array("Doe", "Fontenelle")
         );
 
-        for($i = 0 ; $i < count($titles) ; $i++) {
-            $discovery = new Discovery();
-            $discovery->setTitle($titles[$i])
+        $maxParticipants = array(
+            80,
+            60,
+            40
+        );
+
+        for ($i = 0 ; $i < count($titles) ; $i++) {
+            $tournament = new TournamentTeam();
+            $tournament->setTitle($titles[$i])
                 ->setDescription($descriptions[$i])
                 ->setCreationDate(new \DateTime())
                 ->setStartDate($startDatesTimes[$i])
@@ -86,8 +92,10 @@ class LoadDiscovery extends LoadObject implements OrderedFixtureInterface
             foreach ($responsibleNames[$i] as $responsibleName) {
                 $responsibles[] = $this->getReference($responsibleName);
             }
-            $discovery->setResponsibles($responsibles);
-            $manager->persist($discovery);
+            $tournament->setResponsibles($responsibles);
+            $tournament->setNumberParticipantMax($maxParticipants[$i]);
+
+            $manager->persist($tournament);
         }
 
         $manager->flush();
@@ -100,6 +108,6 @@ class LoadDiscovery extends LoadObject implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return 2;
+        return 3;
     }
 }
