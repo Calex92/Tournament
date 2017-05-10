@@ -51,6 +51,15 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
             false
         );
 
+        $rolesArray = array(
+            array("ROLE_SUPER_ADMIN"),
+            array("ROLE_ADMIN"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER")
+        );
+
         for ($i = 0 ; $i<count($firstnames) ; $i++) {
             $user = new User();
             $user->setFirstname(    $firstnames[$i]);
@@ -58,6 +67,7 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
             $user->setEnabled(      $enabled[$i]);
             $user->setEmail(        $firstnames[$i].".".$lastnames[$i]."@test.com");
             $user->setPlainPassword("popo");
+            $user->setRoles($rolesArray[$i]);
 
             $manager->persist($user);
             $this->addReference($lastnames[$i], $user);

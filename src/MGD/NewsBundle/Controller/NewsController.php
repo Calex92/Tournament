@@ -3,6 +3,7 @@
 namespace MGD\NewsBundle\Controller;
 
 use MGD\NewsBundle\Entity\News;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,6 +28,11 @@ class NewsController extends Controller
         ));
     }
 
+    /**
+     * Displays the list of the news to the admin
+     * @Security("has_role('ROLE_ADMIN')")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function listAction() {
         $news = $this->getDoctrine()->getRepository("MGDNewsBundle:News")->findAll();
 
@@ -74,6 +80,7 @@ class NewsController extends Controller
 
     /**
      * Displays a form to edit an existing news entity.
+     * @Security("has_role('ROLE_ADMIN')")
      * @param Request $request
      * @param News $news
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response

@@ -26,6 +26,7 @@ class Builder
     /**
      * Builder constructor.
      * @param FactoryInterface $factory
+     * @param AuthorizationChecker $authorizationChecker
      */
     public function __construct(FactoryInterface $factory, AuthorizationChecker $authorizationChecker)
     {
@@ -44,9 +45,10 @@ class Builder
         //If the user is not logged
         if (!$this->authorizationChecker->isGranted("IS_AUTHENTICATED_REMEMBERED")) {
             $menu->addChild("Se connecter", array("route" => "fos_user_security_login"));
-        }
-        //If the user is logged
-        else {
+        } else if ($this->authorizationChecker->isGranted("ROLE_ADMIN")) {
+            //If the user is logged
+
+            //The user needs to be an ADMIN to have access to the admin panel
             $menu->addChild("Administration", array(
                                                 "uri" => "#",
                                                 "label" => "Administration <i class='fa fa-caret-down'></i>",
@@ -58,7 +60,9 @@ class Builder
             $menu["Administration"]->addChild("Utilisateurs", array("route" => "mgd_admin_user_homepage"));
             $menu["Administration"]->addChild("News", array("route" => "mgd_news_list"));
             $menu["Administration"]->addChild("Tournois", array("route" => "fos_user_security_login"));
+        }
 
+        if ($this->authorizationChecker->isGranted("IS_AUTHENTICATED_REMEMBERED")) {
             $menu->addChild("Se déconnecter", array("route" => "fos_user_security_logout"));
         }
 
