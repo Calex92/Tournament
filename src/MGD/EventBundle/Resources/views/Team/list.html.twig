@@ -1,0 +1,26 @@
+<table class="table table-stripped table-hover">
+    <thead>
+    <tr>
+        <th>Nom d'équipe</th>
+        <th>Nombre de joueurs</th>
+        <th>Chef d'équipe</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for team in event.teams %}
+        <tr>
+            <td>{{ team.name }}</td>
+            <td>{{ team.players|length }}</td>
+            <td>{{ team.leader.firstname }} {{ team.leader.lastname }}</td>
+            <td class="text-center">
+                {% spaceless %}
+                    <a href="{{ path('mgd_team_show', {"id" : team.id} ) }}" title="Voir l'équipe">
+                        <i class="glyphicon glyphicon-eye-open"></i>
+                    </a>
+                {% endspaceless %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

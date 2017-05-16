@@ -2,6 +2,7 @@
 
 namespace MGD\UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use MGD\EventBundle\Entity\Event;
@@ -48,11 +49,18 @@ class User extends BaseUser
     private $managedEvents;
 
     /**
-     * @var Team[]
+     * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="MGD\EventBundle\Entity\Team", inversedBy="players")
+     * @ORM\ManyToMany(targetEntity="MGD\EventBundle\Entity\Team", mappedBy="players")
      */
     private $teams;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="MGD\EventBundle\Entity\Team", mappedBy="applicants")
+     */
+    private $applications;
 
     /**
      * @var TournamentSolo[]
@@ -127,7 +135,7 @@ class User extends BaseUser
     }
 
     /**
-     * @return Team[]
+     * @return ArrayCollection
      */
     public function getTeams()
     {
@@ -186,6 +194,48 @@ class User extends BaseUser
         return $this;
     }
 
+    public function addTeam(Team $team)
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams->add($team);
+        }
+        return $this;
+    }
 
+    public function removeTeam(Team $team)
+    {
+        $this->teams->removeElement($team);
+    }
+
+    public function addApplication(Team $team)
+    {
+        if (!$this->applications->contains($team)) {
+            $this->applications->add($team);
+        }
+        return $this;
+    }
+
+    public function removeApplication(Team $team)
+    {
+        $this->applications->removeElement($team);
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getApplications()
+    {
+        return $this->applications;
+    }
+
+    /**
+     * @param ArrayCollection $applications
+     * @return $this
+     */
+    public function setApplications($applications)
+    {
+        $this->applications = $applications;
+        return $this;
+    }
 }
 

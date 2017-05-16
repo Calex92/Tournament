@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Créer une équipe</h1>
+    <p>
+        Une fois ton équipe créée, il faudra que tu acceptes ou non les utilisateurs qui vont postuler à celle-ci. Une fois que ton équipe sera complète, n'oublie surtout pas de payer pour
+        valider l'inscription si nécessaire!
+    </p>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Créer" class="btn btn-primary pull-right margin-left-10"/>
+    {{ form_end(form) }}
+
+    <a class="btn btn-default pull-right" href="{{ path('mdg_tournament_view', { "id" : team.tournament.id} ) }}">Retour</a>
+    <div class="clearfix"></div>
+{% endblock %}

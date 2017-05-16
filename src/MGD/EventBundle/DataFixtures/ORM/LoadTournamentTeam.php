@@ -12,6 +12,7 @@ namespace MGD\EventBundle\DataFixtures\ORM;
 use AppBundle\DataFixtures\ORM\LoadObject;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use MGD\EventBundle\Entity\Game;
 use MGD\EventBundle\Entity\TournamentTeam;
 
 class LoadTournamentTeam extends LoadObject implements OrderedFixtureInterface
@@ -23,6 +24,13 @@ class LoadTournamentTeam extends LoadObject implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
+        $gamesNames = ["League of Legends", "Hearthstone", "CS:GO", "Pokemon", "Clash Royale", "Overwatch"];
+        $gamesId = array(
+            $gamesNames[0],
+            $gamesNames[2],
+            $gamesNames[5]
+        );
+
         $titles = array(
             "Tournoi League of Legends",
             "Tournoi CS:GO",
@@ -77,6 +85,12 @@ class LoadTournamentTeam extends LoadObject implements OrderedFixtureInterface
             40
         );
 
+        $teamSizes = array(
+            5,
+            5,
+            3
+        );
+
         for ($i = 0 ; $i < count($titles) ; $i++) {
             $tournament = new TournamentTeam();
             $tournament->setTitle($titles[$i])
@@ -94,6 +108,12 @@ class LoadTournamentTeam extends LoadObject implements OrderedFixtureInterface
             }
             $tournament->setResponsibles($responsibles);
             $tournament->setNumberParticipantMax($maxParticipants[$i]);
+
+            /** @var Game $game */
+            $game = $this->getReference($gamesId[$i]);
+            $tournament->setGame($game);
+
+            $tournament->setTeamSize($teamSizes[$i]);
 
             $manager->persist($tournament);
         }

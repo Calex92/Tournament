@@ -16,3 +16,23 @@ mgd_event_homepage:
     path:     /
     defaults: { _controller: MGDEventBundle:Default:index }
     methods:   ["GET"]
+
+mgd_team_show:
+    path:     /team/{id}/show
+    defaults: { _controller: "MGDEventBundle:Team:show" }
+    methods:  GET
+
+mgd_team_new:
+    path:     /team/new/{id}
+    defaults: { _controller: "MGDEventBundle:Team:new" }
+    methods:  [GET, POST]
+
+mgd_team_edit:
+    path:     /team/{id}/edit
+    defaults: { _controller: "MGDEventBundle:Team:edit" }
+    methods:  [GET, POST]
+
+mgd_team_delete:
+    path:     /team/{id}/delete
+    defaults: { _controller: "MGDEventBundle:Team:delete" }
+    methods:  DELETE

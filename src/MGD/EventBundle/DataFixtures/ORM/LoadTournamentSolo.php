@@ -12,6 +12,7 @@ namespace MGD\EventBundle\DataFixtures\ORM;
 use AppBundle\DataFixtures\ORM\LoadObject;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use MGD\EventBundle\Entity\Game;
 use MGD\EventBundle\Entity\TournamentSolo;
 
 class LoadTournamentSolo extends LoadObject implements OrderedFixtureInterface
@@ -23,6 +24,13 @@ class LoadTournamentSolo extends LoadObject implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
+        $gamesNames = ["League of Legends", "Hearthstone", "CS:GO", "Pokemon", "Clash Royale", "Overwatch"];
+        $gamesId = array(
+            $gamesNames[1],
+            $gamesNames[3],
+            $gamesNames[4]
+        );
+
         $titles = array(
             "Tournoi Hearthstone",
             "Tournoi cartes Pokémon",
@@ -106,6 +114,10 @@ class LoadTournamentSolo extends LoadObject implements OrderedFixtureInterface
             }
             $tournament->setPlayers($players);
             $tournament->setNumberParticipantMax($maxParticipants[$i]);
+
+            /** @var Game $game */
+            $game = $this->getReference($gamesId[$i]);
+            $tournament->setGame($game);
 
             $manager->persist($tournament);
         }

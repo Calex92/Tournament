@@ -23,6 +23,13 @@ abstract class Tournament extends Event
     private $numberParticipantMax;
 
     /**
+     * @var Game
+     *
+     * @ORM\ManyToOne(targetEntity="MGD\EventBundle\Entity\Game")
+     */
+    private $game;
+
+    /**
      * @return mixed
      */
     public function getNumberParticipantMax()
@@ -48,4 +55,22 @@ abstract class Tournament extends Event
     }
 
     public abstract function getTemplateName();
+
+    /**
+     * @return Game
+     */
+    public function getGame()
+    {
+        return $this->game;
+    }
+
+    /**
+     * @param Game $game
+     * @return $this
+     */
+    public function setGame($game)
+    {
+        $this->game = $game;
+        return $this;
+    }
 }

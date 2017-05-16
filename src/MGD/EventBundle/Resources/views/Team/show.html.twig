@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Team</h1>
+
+    <h1>{{ team.name }}</h1>
+
+    <h2>Les joueurs</h2>
+
+    <ul>
+        {% for player in team.players %}
+            <li>{{ player.lastname }} {{ player.firstname }}</li>
+        {% endfor %}
+    </ul>
+
+    <a class="btn btn-primary pull-right col-md-2" href="{{ path('mgd_team_edit', { 'id': team.id } ) }}">Edit</a>
+    {{ form_start(delete_form) }}
+    {{ form_end(delete_form) }}
+    <div class="clearfix"></div>
+{% endblock %}

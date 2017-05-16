@@ -2,6 +2,7 @@
 
 namespace MGD\EventBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use MGD\UserBundle\Entity\User;
 
@@ -30,18 +31,21 @@ class Team
     private $tournament;
 
     /**
-     * @var User[]
+     * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="MGD\UserBundle\Entity\User", mappedBy="teams")
+     * @ORM\ManyToMany(targetEntity="MGD\UserBundle\Entity\User", inversedBy="teams")
      */
     private $players;
 
     /**
-     * @var int
+     * @var ArrayCollection
      *
-     * @ORM\Column(name="team_size", type="integer")
+     * @ORM\ManyToMany(targetEntity="MGD\UserBundle\Entity\User", inversedBy="applications").
+     * @ORM\JoinTable(name="team_user_application",
+     *     joinColumns={@ORM\JoinColumn(name="team_id", referencedColumnName="id")},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")})
      */
-    private $teamSize;
+    private $applicants;
 
     /**
      * @var string
@@ -51,12 +55,18 @@ class Team
     private $name;
 
     /**
-     * Team constructor.
-     * @param int $teamSize
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="MGD\UserBundle\Entity\User")
      */
-    public function __construct($teamSize)
+    private $leader;
+
+    /**
+     * Team constructor.
+     */
+    public function __construct()
     {
-        $this->teamSize = $teamSize;
+        $this->players = new ArrayCollection();
     }
 
 
@@ -87,7 +97,7 @@ class Team
     }
 
     /**
-     * @return User[]
+     * @return ArrayCollection
      */
     public function getPlayers()
     {
@@ -95,19 +105,11 @@ class Team
     }
 
     /**
-     * @param User[] $players
+     * @param ArrayCollection[User] $players
      */
     public function setPlayers($players)
     {
         $this->players = $players;
-    }
-
-    /**
-     * @return int
-     */
-    public function getTeamSize()
-    {
-        return $this->teamSize;
     }
 
     /**
@@ -125,4 +127,71 @@ class Team
     {
         $this->name = $name;
     }
+
+    /**
+     * @return User
+     */
+    public function getLeader()
+    {
+        return $this->leader;
+    }
+
+    /**
+     * @param User $leader
+     * @return $this
+     */
+    public function setLeader($leader)
+    {
+        $this->leader = $leader;
+        return $this;
+    }
+
+    public function addPlayer(User $player) {
+        if (!$this->players->contains($player)) {
+            $this->players->add($player);
+            $player->addTeam($this);
+        }
+        return $this;
+    }
+
+    public function removePlayer(User $player) {
+        $this->players->removeElement($player);
+        $player->removeTeam($this);
+
+        return $this;
+    }
+
+    public function addApplicant(User $player) {
+        if (!$this->applicants->contains($player)) {
+            $this->applicants->add($player);
+            $player->addTeam($this);
+        }
+        return $this;
+    }
+
+    public function removeApplicant(User $player) {
+        $this->applicants->removeElement($player);
+        $player->removeTeam($this);
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApplicants()
+    {
+        return $this->applicants;
+    }
+
+    /**
+     * @param mixed $applicants
+     * @return $this
+     */
+    public function setApplicants($applicants)
+    {
+        $this->applicants = $applicants;
+        return $this;
+    }
+
 }

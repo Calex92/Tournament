@@ -20,6 +20,12 @@ class TournamentTeam extends Tournament
     private $teams;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="team_size", type="integer", nullable=false)
+     */
+    private $teamSize;
+    /**
      * @return Team[]
      */
     public function getTeams()
@@ -38,5 +44,23 @@ class TournamentTeam extends Tournament
     public function getTemplateName()
     {
         return "view_team.html.twig";
+    }
+
+    /**
+     * @return int
+     */
+    public function getTeamSize()
+    {
+        return $this->teamSize;
+    }
+
+    /**
+     * @param int $teamSize
+     * @return $this
+     */
+    public function setTeamSize($teamSize)
+    {
+        $this->teamSize = $teamSize;
+        return $this;
     }
 }
