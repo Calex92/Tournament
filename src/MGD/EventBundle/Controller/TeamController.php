@@ -33,8 +33,6 @@ class TeamController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $team->addPlayer($this->getUser());
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($team);
             $em->flush();

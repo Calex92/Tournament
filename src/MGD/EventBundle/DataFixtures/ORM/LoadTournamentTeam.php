@@ -116,6 +116,8 @@ class LoadTournamentTeam extends LoadObject implements OrderedFixtureInterface
             $tournament->setTeamSize($teamSizes[$i]);
 
             $manager->persist($tournament);
+
+            $this->setReference($titles[$i], $tournament);
         }
 
         $manager->flush();

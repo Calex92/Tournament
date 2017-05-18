@@ -67,6 +67,7 @@ class Team
     public function __construct()
     {
         $this->players = new ArrayCollection();
+        $this->applicants = new ArrayCollection();
     }
 
 
@@ -102,6 +103,14 @@ class Team
     public function getPlayers()
     {
         return $this->players;
+    }
+
+    public function getPlayingUsers()
+    {
+        $users = new ArrayCollection($this->players->toArray());
+        $users->add($this->leader);
+
+        return $users;
     }
 
     /**

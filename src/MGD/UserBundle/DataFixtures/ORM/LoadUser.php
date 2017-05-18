@@ -30,7 +30,25 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
             "Michel",
             "Barack",
             "Georges",
-            "Harrison"
+            "Harrison",
+            "Leader1",
+            "Leader2",
+            "Leader3",
+            "Player11",
+            "Player12",
+            "Player13",
+            "Player14",
+            "Player21",
+            "Player22",
+            "Applicant15",
+            "Applicant16",
+            "Applicant23",
+            "Applicant24",
+            "Applicant25",
+            "Applicant26",
+            "Applicant31",
+            "Applicant32",
+
         );
 
         $lastnames = array(
@@ -39,7 +57,24 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
             "Michel",
             "Obama",
             "Washington",
-            "Ford"
+            "Ford",
+            "Leader1",
+            "Leader2",
+            "Leader3",
+            "Player11",
+            "Player12",
+            "Player13",
+            "Player14",
+            "Player21",
+            "Player22",
+            "Applicant15",
+            "Applicant16",
+            "Applicant23",
+            "Applicant24",
+            "Applicant25",
+            "Applicant26",
+            "Applicant31",
+            "Applicant32",
         );
 
         $enabled = array(
@@ -48,7 +83,24 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
             true,
             true,
             true,
-            false
+            false,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
         );
 
         $rolesArray = array(
@@ -57,7 +109,24 @@ class LoadUser extends AbstractFixture implements OrderedFixtureInterface
             array("ROLE_USER"),
             array("ROLE_USER"),
             array("ROLE_USER"),
-            array("ROLE_USER")
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
+            array("ROLE_USER"),
         );
 
         for ($i = 0 ; $i<count($firstnames) ; $i++) {
