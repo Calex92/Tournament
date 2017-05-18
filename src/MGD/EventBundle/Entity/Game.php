@@ -2,6 +2,7 @@
 
 namespace MGD\EventBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,6 +28,13 @@ class Game
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var  ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="MGD\EventBundle\Entity\GamingProfile", mappedBy="game", cascade={"remove"})
+     */
+    private $gamingProfiles;
 
 
     /**
@@ -61,6 +69,24 @@ class Game
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getGamingProfiles()
+    {
+        return $this->gamingProfiles;
+    }
+
+    /**
+     * @param ArrayCollection $gamingProfiles
+     * @return $this
+     */
+    public function setGamingProfiles($gamingProfiles)
+    {
+        $this->gamingProfiles = $gamingProfiles;
+        return $this;
     }
 }
 

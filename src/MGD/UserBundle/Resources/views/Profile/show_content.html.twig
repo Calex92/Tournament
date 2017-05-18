@@ -12,4 +12,5 @@
     <p>Nom: {{ user.lastname }}</p>
     <p>Prénom: {{ user.firstname }}</p>
 </div>
+<a href="{{ path("fos_user_profile_edit", { "id" : user.id } ) }}" class="btn btn-primary pull-right col-md-2">Editer mon profil</a>
 <div class="clearfix"></div>

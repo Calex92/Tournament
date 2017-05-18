@@ -45,24 +45,24 @@ class Builder
         //If the user is not logged
         if (!$this->authorizationChecker->isGranted("IS_AUTHENTICATED_REMEMBERED")) {
             $menu->addChild("Se connecter", array("route" => "fos_user_security_login"));
-        } else if ($this->authorizationChecker->isGranted("ROLE_ADMIN")) {
-            //If the user is logged
+        } else{
+            if ($this->authorizationChecker->isGranted("ROLE_ADMIN")) {
+                //If the user is logged
 
-            //The user needs to be an ADMIN to have access to the admin panel
-            $menu->addChild("Administration", array(
-                                                "uri" => "#",
-                                                "label" => "Administration <i class='fa fa-caret-down'></i>",
-                                                "extras"    => array("safe_label"   => true)))
+                //The user needs to be an ADMIN to have access to the admin panel
+                $menu->addChild("Administration", array(
+                    "uri" => "#",
+                    "label" => "Administration <i class='fa fa-caret-down'></i>",
+                    "extras" => array("safe_label" => true)))
                     ->setAttribute("class", "dropdown")
-                    ->setLinkAttributes(array("class" => "dropdown-toggle", "data-toggle" => "dropdown", "role" => "button", "aria-haspopup"=> "true", "aria-expanded" => "false"))
+                    ->setLinkAttributes(array("class" => "dropdown-toggle", "data-toggle" => "dropdown", "role" => "button", "aria-haspopup" => "true", "aria-expanded" => "false"))
                     ->setChildrenAttribute("class", "dropdown-menu");
 
-            $menu["Administration"]->addChild("Utilisateurs", array("route" => "mgd_admin_user_homepage"));
-            $menu["Administration"]->addChild("News", array("route" => "mgd_news_list"));
-            $menu["Administration"]->addChild("Tournois", array("route" => "fos_user_security_login"));
-        }
-
-        if ($this->authorizationChecker->isGranted("IS_AUTHENTICATED_REMEMBERED")) {
+                $menu["Administration"]->addChild("Utilisateurs", array("route" => "mgd_admin_user_homepage"));
+                $menu["Administration"]->addChild("News", array("route" => "mgd_news_list"));
+                $menu["Administration"]->addChild("Tournois", array("route" => "fos_user_security_login"));
+            }
+            $menu->addChild("Mon profil", array("route" => "fos_user_profile_show"));
             $menu->addChild("Se déconnecter", array("route" => "fos_user_security_logout"));
         }
 

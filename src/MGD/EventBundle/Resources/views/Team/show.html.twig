@@ -21,7 +21,9 @@
     </ul>
     {% endif %}
 
-    <a class="btn btn-primary pull-right col-md-2" href="{{ path('mgd_team_edit', { 'id': team.id } ) }}">Edit</a>
+    {% if (is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user.id == team.leader.id) or is_granted('ROLE_ADMIN') %}
+        <a class="btn btn-primary pull-right col-md-2" href="{{ path('mgd_team_edit', { 'id': team.id } ) }}">Edit</a>
+    {% endif %}
     <a class="btn btn-default pull-right col-md-2 margin-right-10" href="{{ path('mdg_tournament_view', { 'id': team.tournament.id } ) }}">Retour au tournoi</a>
     {{ form_start(delete_form) }}
     {{ form_end(delete_form) }}

@@ -25,6 +25,11 @@ class TeamController extends Controller
      */
     public function newAction(Request $request, TournamentTeam $tournamentTeam)
     {
+        if ($this->getUser()->getGamingUsername($tournamentTeam->getGame()) === null) {
+            $this->get('session')->getFlashBag()
+                ->add("warning", "Vous devez avoir un username pour le jeu ".$tournamentTeam->getGame()->getName()." pour pouvoir créer une équipe pour ce tournoi!");
+            return $this->redirectToRoute("fos_user_profile_show");
+        }
         $team = new Team();
         $team->setTournament($tournamentTeam);
         $team->setLeader($this->getUser());
@@ -107,8 +112,7 @@ class TeamController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($team);
                 $em->flush();
-            }
-            else {
+            } else {
                 $this->get('session')->getFlashBag()->add("danger", "Seul le chef d'équipe peut la supprimer");
             }
         }
@@ -130,10 +134,9 @@ class TeamController extends Controller
             ->setMethod('DELETE')
             ->add('submit', SubmitType::class, array('label' => 'Delete',
                 'attr' => array(
-                    'onclick'   => 'return confirm("Êtes-vous certains de vouloir supprimer cette équipe?\n\nCette action est irreversible!")',
-                    'class'     => 'btn btn-danger pull-left col-md-2'
+                    'onclick' => 'return confirm("Êtes-vous certains de vouloir supprimer cette équipe?\n\nCette action est irreversible!")',
+                    'class' => 'btn btn-danger pull-left col-md-2'
                 )))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

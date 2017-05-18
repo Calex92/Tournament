@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use MGD\EventBundle\Entity\Event;
+use MGD\EventBundle\Entity\Game;
+use MGD\EventBundle\Entity\GamingProfile;
 use MGD\EventBundle\Entity\Team;
 use MGD\EventBundle\Entity\TournamentSolo;
 use MGD\NewsBundle\Entity\News;
@@ -75,6 +77,13 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="MGD\NewsBundle\Entity\News", mappedBy="author", cascade={"remove"})
      */
     private $news;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="MGD\EventBundle\Entity\GamingProfile", mappedBy="user")
+     */
+    private $gamingProfiles;
 
     /**
      * Get id
@@ -237,5 +246,33 @@ class User extends BaseUser
         $this->applications = $applications;
         return $this;
     }
-}
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getGamingProfiles()
+    {
+        return $this->gamingProfiles;
+    }
+
+    /**
+     * @param ArrayCollection $gamingProfiles
+     * @return $this
+     */
+    public function setGamingProfiles($gamingProfiles)
+    {
+        $this->gamingProfiles = $gamingProfiles;
+        return $this;
+    }
+
+    public function getGamingUsername(Game $game)
+    {
+        foreach ($this->gamingProfiles as $gamingProfile) {
+            /** @var GamingProfile $gamingProfile */
+            if ($game->getId() == $gamingProfile->getGame()->getId()) {
+                return $gamingProfile->getUsername();
+            }
+        }
+        return null;
+    }
+}
