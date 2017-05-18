@@ -1,7 +1,18 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-    {{ form_widget(form) }}
+{{ form_widget(form) }}
+<ul id="email-fields-list">
+    {% for gamingProfile in form.gamingProfiles %}
+        <li>
+            {{ form_errors(gamingProfile) }}
+            {{ form_widget(gamingProfile) }}
+        </li>
+    {% endfor %}
+</ul>
+
+<a href="#" class="btn btn-success" id="add-another-email">Add another email</a>
+
     <div>
         <input class="btn btn-primary pull-right col-md-2" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
     </div>

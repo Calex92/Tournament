@@ -9,7 +9,9 @@
 namespace MGD\UserBundle\Form;
 
 
+use MGD\EventBundle\Form\GamingProfileType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class ProfileType extends AbstractType
@@ -20,7 +22,18 @@ class ProfileType extends AbstractType
             ->remove("email")
             ->remove("username")
             ->add("firstname")
-            ->add("lastname");
+            ->add("lastname")
+            ->add("gamingProfiles", CollectionType::class, array(
+                "required"  => false, "prototype"   => true,
+                "allow_add" => true,
+                "allow_delete"  => true,
+                "entry_type"    => GamingProfileType::class,
+                "entry_options" => array(
+                    "attr"  => array("class"    => "gaming-profile")
+                )
+            ));
+
+
     }
 
     public function getParent()

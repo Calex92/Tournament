@@ -3,3 +3,9 @@ services:
         class: MGD\UserBundle\Form\ProfileType
         tags:
             - { name: form.type, alias: app_user_profile }
+
+    mgd_user.listener.edit_profile:
+        class: MGD\UserBundle\EventListener\EditProfileListener
+        tags:
+            - { name: kernel.event_subscriber }
+        arguments: ["@security.token_storage"]
