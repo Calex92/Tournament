@@ -25,15 +25,11 @@ class ProfileType extends AbstractType
             ->add("lastname")
             ->add("gamingProfiles", CollectionType::class, array(
                 "required"  => false, "prototype"   => true,
-                "allow_add" => true,
-                "allow_delete"  => true,
                 "entry_type"    => GamingProfileType::class,
                 "entry_options" => array(
                     "attr"  => array("class"    => "gaming-profile")
                 )
             ));
-
-
     }
 
     public function getParent()

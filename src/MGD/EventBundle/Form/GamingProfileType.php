@@ -23,7 +23,6 @@ class GamingProfileType extends AbstractType
                 }
             ))
             ->add("username");
-
     }
 
     /**

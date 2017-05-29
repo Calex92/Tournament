@@ -8,4 +8,4 @@ services:
         class: MGD\UserBundle\EventListener\EditProfileListener
         tags:
             - { name: kernel.event_subscriber }
-        arguments: ["@security.token_storage"]
+        arguments: ["@security.token_storage", "@doctrine.orm.entity_manager"]

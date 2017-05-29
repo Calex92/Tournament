@@ -1,20 +1,54 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-{{ form_widget(form) }}
-<ul id="email-fields-list">
-    {% for gamingProfile in form.gamingProfiles %}
-        <li>
-            {{ form_errors(gamingProfile) }}
-            {{ form_widget(gamingProfile) }}
-        </li>
-    {% endfor %}
-</ul>
 
-<a href="#" class="btn btn-success" id="add-another-email">Add another email</a>
-
-    <div>
-        <input class="btn btn-primary pull-right col-md-2" type="submit" value="{{ 'profile.edit.submit'|trans }}" />
+<div class="well well-block-info">
+    Pour toute modification, veuillez compléter votre mot de passe:
+    <div class="form-group margin-top-20">
+        {{ form_label(form.current_password, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.current_password, {"attr": {'class' : "form-control"}}) }}
+        </div>
+        {{ form_errors(form.current_password) }}
     </div>
+    <div class="clearfix"></div>
+</div>
+<div class="well well-block-info">
+    <div class="form-group">
+        {{ form_label(form.firstname, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.firstname, {"attr": {'class' : "form-control"}}) }}
+        </div>
+        {{ form_errors(form.firstname) }}
+    </div>
+
+    <div class="form-group margin-top-20">
+        {{ form_label(form.lastname, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+        <div class="col-sm-8">
+            {{ form_widget(form.lastname, {"attr": {'class' : "form-control"}}) }}
+        </div>
+        {{ form_errors(form.lastname) }}
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+<div class="well well-block-info">
+    <a href="#" id="add-another-email" class="btn btn-primary col-md-3">Ajouter un fichier</a>
+    <div id="email-fields-list">
+        {{ form_errors(form.gamingProfiles) }}
+        {{ form_widget(form.gamingProfiles) }}
+
+        {% for gamingProfile in form.gamingProfiles %}
+            <p>
+                {{ form_errors(gamingProfile) }}
+                {{ form_widget(gamingProfile) }}
+            </p>
+        {% endfor %}
+    </div>
+</div>
+{{ form_widget(form) }}
+<div>
+    <input class="btn btn-primary pull-right col-md-2" type="submit" value="{{ 'profile.edit.submit'|trans }}"/>
+</div>
 <div class="clearfix"></div>
 {{ form_end(form) }}

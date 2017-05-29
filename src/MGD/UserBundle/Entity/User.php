@@ -11,6 +11,8 @@ use MGD\EventBundle\Entity\GamingProfile;
 use MGD\EventBundle\Entity\Team;
 use MGD\EventBundle\Entity\TournamentSolo;
 use MGD\NewsBundle\Entity\News;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * User
@@ -81,7 +83,7 @@ class User extends BaseUser
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="MGD\EventBundle\Entity\GamingProfile", mappedBy="user", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="MGD\EventBundle\Entity\GamingProfile", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     private $gamingProfiles;
 
@@ -274,5 +276,27 @@ class User extends BaseUser
             }
         }
         return null;
+    }
+
+    /**
+     * @Assert\Callback()
+     * @param ExecutionContextInterface $context
+     */
+    public function validate(ExecutionContextInterface $context) {
+        $gameIdArray = array();
+
+        foreach ($this->gamingProfiles as $gamingProfile) {
+            /** @var Game $game */
+            $game = $gamingProfile->getGame();
+            if (!in_array($game->getId(), $gameIdArray)) {
+                $gameIdArray[] = $game->getId();
+            }
+            else {
+                $context->buildViolation("Vous ne pouvez pas avoir 2 profils pour le même jeu! (".$game->getName().")")
+                    ->atPath("gamingProfiles")
+                    ->addViolation();
+            }
+        }
+
     }
 }
