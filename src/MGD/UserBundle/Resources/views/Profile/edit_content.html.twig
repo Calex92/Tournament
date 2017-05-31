@@ -1,7 +1,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-
+{{ form_errors(form) }}
 <div class="well well-block-info">
     Pour toute modification, veuillez compléter votre mot de passe:
     <div class="form-group margin-top-20">
@@ -32,21 +32,15 @@
 
     <div class="clearfix"></div>
 </div>
+{{ form_errors(form) }}
 <div class="well well-block-info">
-    <a href="#" id="add-another-email" class="btn btn-primary col-md-3">Ajouter un fichier</a>
-    <div id="email-fields-list">
-        {{ form_errors(form.gamingProfiles) }}
+    <h4 class="col-md-10">Mes profils d'utilisateur</h4>
+    <button type="button" id="add-profile" class="btn btn-success col-md-2"><i class="glyphicon glyphicon-plus"></i> Ajouter un profil</button>
+    <div id="profile-fields-list" class="col-md-12 padding-top-20">
         {{ form_widget(form.gamingProfiles) }}
-
-        {% for gamingProfile in form.gamingProfiles %}
-            <p>
-                {{ form_errors(gamingProfile) }}
-                {{ form_widget(gamingProfile) }}
-            </p>
-        {% endfor %}
     </div>
+    <div class="clearfix"></div>
 </div>
-{{ form_widget(form) }}
 <div>
     <input class="btn btn-primary pull-right col-md-2" type="submit" value="{{ 'profile.edit.submit'|trans }}"/>
 </div>

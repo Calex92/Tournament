@@ -1,5 +1,30 @@
 {% extends "@FOSUser/layout.html.twig" %}
 
+{% form_theme form _self %}
+{% block _fos_user_profile_form_gamingProfiles_entry_row %}
+    <div class="form-group row">
+        <div class="col-md-5">
+            {{ form_errors(form.game) }}
+            <div>
+                {{ form_label(form.game, null, {"label_attr" : {"class": "col-md-6"}} ) }}
+                <div class="col-md-6 row">
+                    {{ form_widget(form.game) }}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            {{ form_errors(form.username) }}
+            <div>
+                {{ form_label(form.username, null, {"label_attr" : {"class": "col-md-6"}} ) }}
+                <div class="col-md-6 row">
+                    {{ form_widget(form.username) }}
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-danger col-md-2 delete-btn">Supprimer</button>
+    </div>
+{% endblock %}
+
 {% block fos_user_content %}
 {% include "@FOSUser/Profile/edit_content.html.twig" %}
 {% endblock fos_user_content %}
@@ -7,26 +32,31 @@
 {% block javascripts %}
     <script type="text/javascript">
         // keep track of how many email fields have been rendered
-        var emailCount = '{{ form.gamingProfiles|length }}';
+        var profileCount = '{{ form.gamingProfiles|length }}';
 
-        jQuery(document).ready(function() {
-            jQuery('#add-another-email').click(function(e) {
-                e.preventDefault();
+        $(document).ready(function() {
+            $('#add-profile').click(function() {
 
-                var emailList = jQuery('#email-fields-list');
+                var emailList = jQuery('#profile-fields-list');
 
                 // grab the prototype template
                 var newWidget = $("#fos_user_profile_form_gamingProfiles").attr('data-prototype');
                 // replace the "__name__" used in the id and name of the prototype
                 // with a number that's unique to your emails
                 // end name attribute looks like name="contact[emails][2]"
-                newWidget = newWidget.replace(/__name__/g, emailCount);
-                emailCount++;
+                newWidget = newWidget.replace(/__name__/g, profileCount);
+                profileCount++;
 
                 // create a new list element and add it to the list
-                var newLi = jQuery('<p></p>').html(newWidget);
-                newLi.appendTo(emailList);
+                var newProfile = $('<p></p>').html(newWidget);
+                newProfile.appendTo(emailList);
             });
+
+            $(".delete-btn").on("click", function () {
+                if (confirm('Êtes vous sur de vouloir supprimer ce profil?')) {
+                    $(this).parent(".form-group").remove();
+                }
+            })
         });
     </script>
 {% endblock %}
