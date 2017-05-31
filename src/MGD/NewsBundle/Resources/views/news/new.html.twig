@@ -1,16 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>News creation</h1>
+    <div class="margin-top-10">
+        <h1>Créer une news</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        {{ form_start(form) }}
+        {{ include('@MGDNews/news/newsType.html.twig') }}
+        <input class="btn btn-primary pull-right" type="submit" value="Créer"/>
+        {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('mgd_news_index') }}">Back to the list</a>
-        </li>
-    </ul>
+        <a class="btn btn-default pull-right margin-right-15" href="{{ path('mgd_news_list') }}">Retour à la liste</a>
+        <div class="clearfix"></div>
+    </div>
 {% endblock %}

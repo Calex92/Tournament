@@ -1,7 +1,9 @@
 {% extends "base.html.twig" %}
 
 {% block body %}
-    <h1>Voici la liste des news</h1>
+    <h1 class="col-md-12">Liste des news
+        <a href="{{ path("mgd_news_new") }}" class="btn btn-primary pull-right col-md-2"><i class="glyphicon glyphicon-plus"></i>&nbsp;Ajouter une news</a>
+    </h1>
 
     <table class="table table-striped table-bordered table-hover dataTable">
         <thead>

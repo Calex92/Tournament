@@ -87,3 +87,12 @@ knp_menu:
         template: KnpMenuBundle::menu.html.twig
     templating: false
     default_renderer: twig
+
+ivory_ck_editor:
+    configs:
+        my_basic_config:
+            toolbar: [ [ "Source", "-", "Cut", "Copy", 'Paste','PasteText','PasteFromWord','-','Undo','Redo' ],
+             [ 'Link','Unlink','Anchor' ],
+             [ 'Bold','Italic','Underline','Strike', 'Blockquote','Subscript','Superscript' ], "/",
+             [ 'NumberedList','BulletedList','-','Outdent','Indent','-','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
+             [ 'Styles', 'Format','Font','FontSize', '-', 'TextColor','BGColor' ], [ 'Maximize' ]]

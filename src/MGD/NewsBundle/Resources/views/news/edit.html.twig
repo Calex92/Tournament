@@ -1,14 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Editer une news</h1>
+    <div class="margin-top-10">
+        <h1>Editer une news</h1>
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input class="btn btn-primary pull-right" type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+        {{ form_start(form, {"class" : "margin-top-10"}) }}
+        {{ include('@MGDNews/news/newsType.html.twig') }}
+        <input class="btn btn-primary pull-right" type="submit" value="Editer"/>
+        {{ form_end(form) }}
 
-    <a class="btn btn-default pull-right margin-right-15" href="{{ path('mgd_news_index') }}">Back to the list</a>
+        <a class="btn btn-default pull-right margin-right-15" href="{{ path('mgd_news_list') }}">Retour à la liste</a>
 
-    <div class="clearfix"></div>
+        <div class="clearfix"></div>
+    </div>
 {% endblock %}

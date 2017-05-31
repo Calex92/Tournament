@@ -98,7 +98,7 @@ class NewsController extends Controller
 
         return $this->render('@MGDNews/news/edit.html.twig', array(
             'news' => $news,
-            'edit_form' => $editForm->createView()
+            'form' => $editForm->createView()
         ));
     }
 }
