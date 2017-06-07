@@ -57,7 +57,7 @@ class Team
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="MGD\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="MGD\UserBundle\Entity\User", inversedBy="managedTeam")
      */
     private $leader;
 

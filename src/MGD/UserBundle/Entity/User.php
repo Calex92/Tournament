@@ -60,6 +60,13 @@ class User extends BaseUser
     private $teams;
 
     /**
+     * @var  ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="MGD\EventBundle\Entity\Team", mappedBy="leader")
+     */
+    private $managedTeam;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="MGD\EventBundle\Entity\Team", mappedBy="applicants")
@@ -267,6 +274,29 @@ class User extends BaseUser
         return $this;
     }
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getManagedTeam()
+    {
+        return $this->managedTeam;
+    }
+
+    /**
+     * @param ArrayCollection $managedTeam
+     * @return $this
+     */
+    public function setManagedTeam($managedTeam)
+    {
+        $this->managedTeam = $managedTeam;
+        return $this;
+    }
+
+    /**
+     * Returns the username if the user have it, if not, returns null
+     * @param Game $game
+     * @return null|string
+     */
     public function getGamingUsername(Game $game)
     {
         foreach ($this->gamingProfiles as $gamingProfile) {

@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Team</h1>
+    {% set isUserWithTeam = isUserWithTeam(team) %}
+    {% if isUserWithTeam %}
+        <div class="col-md-12 alert alert-danger pull-right">Vous ne pouvez pas postuler pour cette équipe, vous avez déjà postulé pour une autre équipe pour le même tournoi.</div>
+    {% endif %}
+    <h1>
+        Team
+    </h1>
+    {% if not isUserWithTeam %}
+        {{ form_start(application_form) }}
+        {{ form_end(application_form) }}
+    {% endif %}
 
-    <h1>{{ team.name }}</h1>
+    <h2>{{ team.name }}</h2>
 
-    <h2>Les joueurs</h2>
+    <h3>Les joueurs</h3>
     <ul>
         {% for player in team.playingUsers %}
             <li>{{ player.lastname }} {{ player.firstname }}</li>
@@ -13,19 +23,22 @@
     </ul>
 
     {% if (is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user.id == team.leader.id) or is_granted('ROLE_ADMIN') %}
-    <h2>Les personnes ayant postulé</h2>
-    <ul>
-        {% for applicant in team.applicants %}
-            <li>{{ applicant.lastname }} {{ applicant.firstname }}</li>
-        {% endfor %}
-    </ul>
+        <h3>Les personnes ayant postulé</h3>
+        <ul>
+            {% for applicant in team.applicants %}
+                <li>{{ applicant.lastname }} {{ applicant.firstname }}</li>
+            {% endfor %}
+        </ul>
     {% endif %}
 
     {% if (is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user.id == team.leader.id) or is_granted('ROLE_ADMIN') %}
         <a class="btn btn-primary pull-right col-md-2" href="{{ path('mgd_team_edit', { 'id': team.id } ) }}">Edit</a>
+
+        {{ form_start(delete_form) }}
+        {{ form_end(delete_form) }}
     {% endif %}
-    <a class="btn btn-default pull-right col-md-2 margin-right-10" href="{{ path('mdg_tournament_view', { 'id': team.tournament.id } ) }}">Retour au tournoi</a>
-    {{ form_start(delete_form) }}
-    {{ form_end(delete_form) }}
+    <a class="btn btn-default pull-right col-md-2 margin-right-10"
+       href="{{ path('mdg_tournament_view', { 'id': team.tournament.id } ) }}">Retour au tournoi</a>
+
     <div class="clearfix"></div>
 {% endblock %}

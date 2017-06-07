@@ -2,13 +2,17 @@ services:
     mgd_event.route_generator:
         class:     MGD\EventBundle\Twig\AppExtension
         public:    false
-        arguments: ["@router"]
+        arguments: ["@router", "@mgd_event.application_checker", "@security.token_storage"]
         tags:
             - { name: twig.extension }
 
     mgd_event.tournament_manager:
         class:    MGD\EventBundle\Manager\TournamentManager
         arguments: ['@doctrine.orm.entity_manager']
+
+    mgd_event.application_checker:
+        class:    MGD\EventBundle\Service\ApplicationChecker
+        arguments: ["@router"]
 
 #    mgd_event.example:
 #        class: MGD\EventBundle\Example

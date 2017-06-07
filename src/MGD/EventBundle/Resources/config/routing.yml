@@ -36,3 +36,8 @@ mgd_team_delete:
     path:     /team/{id}/delete
     defaults: { _controller: "MGDEventBundle:Team:delete" }
     methods:  DELETE
+
+mgd_team_application:
+    path:     /team/{id}/application
+    defaults: { _controller: "MGDEventBundle:Team:application" }
+    methods:  POST
