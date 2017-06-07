@@ -5,6 +5,8 @@ namespace MGD\EventBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use MGD\UserBundle\Entity\User;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Team
@@ -201,6 +203,19 @@ class Team
     {
         $this->applicants = $applicants;
         return $this;
+    }
+
+    /**
+     * @Assert\Callback()
+     * @param ExecutionContextInterface $context
+     */
+    public function validate(ExecutionContextInterface $context) {
+        if (count($this->players) > ($this->getTournament()->getTeamSize()-1)) {
+            $context->buildViolation("Une équipe ne peut être composée que de ".$this->getTournament()->getTeamSize().
+                " joueurs (le chef d'équipe + les ".($this->getTournament()->getTeamSize()-1)." joueurs)")
+                ->atPath("players")
+                ->addViolation();
+        }
     }
 
 }

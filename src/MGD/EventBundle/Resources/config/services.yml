@@ -12,7 +12,7 @@ services:
 
     mgd_event.application_checker:
         class:    MGD\EventBundle\Service\ApplicationChecker
-        arguments: ["@router"]
+        arguments: ["@router", "@security.authorization_checker"]
 
 #    mgd_event.example:
 #        class: MGD\EventBundle\Example

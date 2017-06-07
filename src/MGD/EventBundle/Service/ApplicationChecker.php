@@ -12,6 +12,7 @@ namespace MGD\EventBundle\Service;
 use MGD\EventBundle\Entity\Team;
 use MGD\UserBundle\Entity\User;
 use Symfony\Component\Routing\Router;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 
 class ApplicationChecker
 {
@@ -19,10 +20,15 @@ class ApplicationChecker
      * @var Router
      */
     private $router;
+    /**
+     * @var AuthorizationChecker
+     */
+    private $authorizationChecker;
 
-    public function __construct(Router $router)
+    public function __construct(Router $router, AuthorizationChecker $authorizationChecker)
     {
         $this->router = $router;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -47,7 +53,11 @@ class ApplicationChecker
      * @param Team $team
      * @return bool|Team|mixed
      */
-    public function isAlreadyApplicant(User $user, Team $team) {
+    public function isAlreadyApplicant($user, Team $team) {
+        if (!$user || !$this->authorizationChecker->isGranted("ROLE_USER")) {
+            return false;
+        }
+
         $teams = $user->getApplications();
         foreach ($teams as $userTeam) {
             /** @var Team $userTeam */

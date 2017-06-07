@@ -4,6 +4,7 @@ namespace MGD\EventBundle\Controller;
 
 use MGD\EventBundle\Entity\Team;
 use MGD\EventBundle\Entity\TournamentTeam;
+use MGD\UserBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -60,10 +61,12 @@ class TeamController extends Controller
     public function showAction(Team $team)
     {
         $deleteForm = $this->createDeleteForm($team);
+        $applicationForm = $this->createApplicationForm($team);
 
         return $this->render('@MGDEvent/Team/show.html.twig', array(
             'team' => $team,
             'delete_form' => $deleteForm->createView(),
+            'application_form' => $applicationForm->createView()
         ));
     }
 
@@ -121,6 +124,34 @@ class TeamController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param Team $team
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function applicationAction(Request $request, Team $team)
+    {
+        $form = $this->createApplicationForm($team);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /** @var User $user */
+            $user = $this->getUser();
+
+            //First, we check if the user can apply for this team, the function returns the error message to display if he can't
+            if (true === $errMessage = $this->get("mgd_event.application_checker")->canApply($user, $team)) {
+                $team->addApplicant($user);
+                $this->getDoctrine()->getEntityManager()->flush();
+            }
+            else {
+                $this->get("session")->getFlashBag()->add("danger", $errMessage);
+            }
+        }
+        return $this->redirectToRoute('mgd_team_show', array("id" => $team->getId()));
+    }
+
+    /**
      * Creates a form to delete a team entity.
      *
      * @param Team $team The team entity
@@ -139,4 +170,22 @@ class TeamController extends Controller
                 )))
             ->getForm();
     }
+
+    /**
+     * Creates a form to apply for a team entity
+     * @param Team $team The team entity
+     * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
+     */
+    private function createApplicationForm(Team $team) {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('mgd_team_application', array('id' => $team->getId())))
+            ->setMethod('POST')
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Rejoindre cette équipe',
+                'attr' => array(
+                    'class' => 'btn btn-primary pull-right col-md-2'
+                )))
+            ->getForm();
+    }
+
 }

@@ -327,6 +327,5 @@ class User extends BaseUser
                     ->addViolation();
             }
         }
-
     }
 }
