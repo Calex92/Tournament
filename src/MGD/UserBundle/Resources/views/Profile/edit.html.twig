@@ -51,12 +51,12 @@
                 var newProfile = $('<p></p>').html(newWidget);
                 newProfile.appendTo(emailList);
             });
+        });
 
-            $(".delete-btn").on("click", function () {
-                if (confirm('Êtes vous sur de vouloir supprimer ce profil?')) {
-                    $(this).parent(".form-group").remove();
-                }
-            })
+        $(document).on("click", ".delete-btn",function () {
+            if (confirm('Êtes vous sur de vouloir supprimer ce profil?')) {
+                $(this).parent(".form-group").remove();
+            }
         });
     </script>
 {% endblock %}
