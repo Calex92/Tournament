@@ -74,11 +74,11 @@ class User extends BaseUser
     private $applications;
 
     /**
-     * @var TournamentSolo[]
+     * @var ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="MGD\EventBundle\Entity\TournamentSolo", inversedBy="players")
      */
-    private $tournamentSolo;
+    private $tournamentsSolo;
 
     /**
      * @var News[]
@@ -169,11 +169,11 @@ class User extends BaseUser
     }
 
     /**
-     * @return TournamentSolo[]
+     * @return ArrayCollection
      */
-    public function getTournamentSolo()
+    public function getTournamentsSolo()
     {
-        return $this->tournamentSolo;
+        return $this->tournamentsSolo;
     }
 
     /**
@@ -181,7 +181,7 @@ class User extends BaseUser
      */
     public function setTournamentSolo($tournamentSolo)
     {
-        $this->tournamentSolo = $tournamentSolo;
+        $this->tournamentsSolo = $tournamentSolo;
     }
 
     /**
@@ -216,6 +216,13 @@ class User extends BaseUser
     {
         if (!$this->teams->contains($team)) {
             $this->teams->add($team);
+        }
+        return $this;
+    }
+
+    public function addTournamentSolo(TournamentSolo $tournamentSolo) {
+        if (!$this->tournamentsSolo->contains($tournamentSolo)) {
+            $this->tournamentsSolo->add($tournamentSolo);
         }
         return $this;
     }
