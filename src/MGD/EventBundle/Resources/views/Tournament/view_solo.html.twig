@@ -5,5 +5,9 @@
         <div class="row text-center padding-top-20 ">
             <a href="{{ path('mgd_tournament_apply', { "id" : event.id}) }}" class="btn btn-success margin-right-20">S'inscrire</a>
         </div>
+    {% else %}
+        <div class="row text-center padding-top-20 ">
+            <a href="{{ path('mgd_tournament_quit', { "id" : event.id}) }}" class="btn btn-danger margin-right-20">Quitter ce tournoi</a>
+        </div>
     {% endif %}
 {% endblock %}

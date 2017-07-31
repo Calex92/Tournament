@@ -12,6 +12,13 @@ mgd_tournament_apply:
         id:    \d*
     methods:   ["GET"]
 
+mgd_tournament_quit:
+    path:    /tournament/quit/{id}
+    defaults: { _controller: MGDEventBundle:Tournament:quit}
+    requirements:
+        id:    \d*
+    methods:   ["GET"]
+
 mdg_discovery_view:
     path:    /discovery/{id}
     defaults: { _controller: MGDEventBundle:Discovery:view }

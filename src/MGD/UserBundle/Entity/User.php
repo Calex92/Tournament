@@ -220,6 +220,11 @@ class User extends BaseUser
         return $this;
     }
 
+    public function removeTeam(Team $team)
+    {
+        $this->teams->removeElement($team);
+    }
+
     public function addTournamentSolo(TournamentSolo $tournamentSolo) {
         if (!$this->tournamentsSolo->contains($tournamentSolo)) {
             $this->tournamentsSolo->add($tournamentSolo);
@@ -227,9 +232,8 @@ class User extends BaseUser
         return $this;
     }
 
-    public function removeTeam(Team $team)
-    {
-        $this->teams->removeElement($team);
+    public function removeTournamentSolo(TournamentSolo $tournamentSolo) {
+        $this->tournamentsSolo->removeElement($tournamentSolo);
     }
 
     public function addApplication(Team $team)
