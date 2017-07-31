@@ -2,6 +2,7 @@
 
 namespace MGD\EventBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use MGD\UserBundle\Entity\User;
 
@@ -14,14 +15,14 @@ use MGD\UserBundle\Entity\User;
 class TournamentSolo extends Tournament
 {
     /**
-     * @var User[]
+     * @var ArrayCollection
      *
-     * @ORM\ManyToMany(targetEntity="MGD\UserBundle\Entity\User", mappedBy="tournamentSolo")
+     * @ORM\ManyToMany(targetEntity="MGD\UserBundle\Entity\User", mappedBy="tournamentsSolo")
      */
     private $players;
 
     /**
-     * @return User[]
+     * @return ArrayCollection
      */
     public function getPlayers()
     {

@@ -5,6 +5,13 @@ mdg_tournament_view:
         id:    \d*
     methods:   ["GET"]
 
+mgd_tournament_apply:
+    path:    /tournament/apply/{id}
+    defaults: { _controller: MGDEventBundle:Tournament:apply}
+    requirements:
+        id:    \d*
+    methods:   ["GET"]
+
 mdg_discovery_view:
     path:    /discovery/{id}
     defaults: { _controller: MGDEventBundle:Discovery:view }

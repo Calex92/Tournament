@@ -11,6 +11,7 @@ namespace MGD\EventBundle\Twig;
 
 use MGD\EventBundle\Entity\Event;
 use MGD\EventBundle\Entity\Team;
+use MGD\EventBundle\Entity\TournamentSolo;
 use MGD\EventBundle\Service\ApplicationChecker;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
@@ -41,7 +42,8 @@ class AppExtension extends \Twig_Extension
     public function getFunctions() {
         return array(
             new \Twig_SimpleFunction('getRouteForEvent', array($this, 'getRouteForEvent')),
-            new \Twig_SimpleFunction('isUserWithTeam', array($this, 'isUserWithTeam'))
+            new \Twig_SimpleFunction('isUserWithTeam', array($this, 'isUserWithTeam')),
+            new \Twig_SimpleFunction('isUserInTournament', array($this, 'isUserInTournament'))
         );
     }
 
@@ -53,5 +55,9 @@ class AppExtension extends \Twig_Extension
         $user = $this->tokenStorage->getToken()->getUser();
         //I must do a strict comparison because the method returns sometimes an object
         return $this->applicationChecker->isAlreadyApplicant($user, $team) !== false;
+    }
+
+    public function isUserInTournament(TournamentSolo $tournament) {
+        return !in_array($this->tokenStorage->getToken()->getUser(), $tournament->getPlayers()->toArray());
     }
 }
