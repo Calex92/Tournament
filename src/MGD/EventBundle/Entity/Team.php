@@ -64,6 +64,13 @@ class Team
     private $leader;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="is_paid", type="boolean")
+     */
+    private $paid;
+
+    /**
      * Team constructor.
      */
     public function __construct()
@@ -188,7 +195,7 @@ class Team
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getApplicants()
     {
@@ -217,5 +224,24 @@ class Team
                 ->addViolation();
         }
     }
+
+    /**
+     * @return int
+     */
+    public function isPaid()
+    {
+        return $this->paid;
+    }
+
+    /**
+     * @param int $paid
+     * @return $this
+     */
+    public function setPaid($paid)
+    {
+        $this->paid = $paid;
+        return $this;
+    }
+
 
 }

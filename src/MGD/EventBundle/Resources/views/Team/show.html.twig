@@ -2,8 +2,10 @@
 
 {% block body %}
     {% set isUserWithTeam = isUserWithTeam(team) %}
-    {% if isUserWithTeam %}
-        <div class="col-md-12 alert alert-danger pull-right">Vous ne pouvez pas postuler pour cette équipe, vous avez déjà postulé pour une autre équipe pour le même tournoi.</div>
+    {% set isUserWithThisTeam = isUserWithThisTeam(team) %}
+    {% if isUserWithTeam and not isUserWithThisTeam %}
+        {% set teamAppliedFor = getTeamFromTournament(team.tournament) %}
+        <div class="col-md-12 alert alert-danger pull-right">Vous ne pouvez pas postuler pour cette équipe, vous avez déjà postulé pour une <a href="{{ path('mgd_team_show', { "id" : teamAppliedFor.id }) }}">autre équipe</a> pour le même tournoi.</div>
     {% endif %}
     <h1>
         Team
@@ -11,6 +13,9 @@
     {% if not isUserWithTeam %}
         {{ form_start(application_form) }}
         {{ form_end(application_form) }}
+    {% elseif isUserWithThisTeam and team.leader != app.user %}
+        {{ form_start(quit_form) }}
+        {{ form_end(quit_form) }}
     {% endif %}
 
     <h2>{{ team.name }}</h2>
@@ -22,14 +27,12 @@
         {% endfor %}
     </ul>
 
-    {% if (is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user.id == team.leader.id) or is_granted('ROLE_ADMIN') %}
         <h3>Les personnes ayant postulé</h3>
         <ul>
             {% for applicant in team.applicants %}
                 <li>{{ applicant.lastname }} {{ applicant.firstname }}</li>
             {% endfor %}
         </ul>
-    {% endif %}
 
     {% if (is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user.id == team.leader.id) or is_granted('ROLE_ADMIN') %}
         <a class="btn btn-primary pull-right col-md-2" href="{{ path('mgd_team_edit', { 'id': team.id } ) }}">Edit</a>

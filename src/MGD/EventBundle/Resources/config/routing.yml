@@ -55,3 +55,8 @@ mgd_team_application:
     path:     /team/{id}/application
     defaults: { _controller: "MGDEventBundle:Team:application" }
     methods:  POST
+
+mgd_team_quit:
+    path:    /team/{id}/quit
+    defaults: { _controller: "MGDEventBundle:Team:quit"}
+    methods:  POST

@@ -28,7 +28,7 @@ class TeamController extends Controller
     {
         if ($this->getUser()->getGamingUsername($tournamentTeam->getGame()) === null) {
             $this->get('session')->getFlashBag()
-                ->add("warning", "Vous devez avoir un username pour le jeu ".$tournamentTeam->getGame()->getName()." pour pouvoir créer une équipe pour ce tournoi!");
+                ->add("warning", "Vous devez avoir un username pour le jeu " . $tournamentTeam->getGame()->getName() . " pour pouvoir créer une équipe pour ce tournoi!");
             return $this->redirectToRoute("fos_user_profile_show");
         }
         $team = new Team();
@@ -62,11 +62,13 @@ class TeamController extends Controller
     {
         $deleteForm = $this->createDeleteForm($team);
         $applicationForm = $this->createApplicationForm($team);
+        $quitForm = $this->createQuitTeamForm($team);
 
         return $this->render('@MGDEvent/Team/show.html.twig', array(
             'team' => $team,
             'delete_form' => $deleteForm->createView(),
-            'application_form' => $applicationForm->createView()
+            'application_form' => $applicationForm->createView(),
+            'quit_form' => $quitForm->createView()
         ));
     }
 
@@ -143,12 +145,39 @@ class TeamController extends Controller
             if (true === $errMessage = $this->get("mgd_event.application_checker")->canApply($user, $team)) {
                 $team->addApplicant($user);
                 $this->getDoctrine()->getEntityManager()->flush();
-            }
-            else {
+            } else {
                 $this->get("session")->getFlashBag()->add("danger", $errMessage);
             }
         }
         return $this->redirectToRoute('mgd_team_show', array("id" => $team->getId()));
+    }
+
+    public function quitAction(Request $request, Team $team)
+    {
+        $quitForm = $this->createQuitTeamForm($team);
+        $quitForm->handleRequest($request);
+
+        if ($quitForm->isSubmitted() && $quitForm->isValid()) {
+            /** @var User $user */
+            $user = $this->getUser();
+            //We check if the user is in the team (in the applicants)
+            if ($this->get("mgd_event.application_checker")->isUserWithThisTeam($user, $team)) {
+                //If the team paid and the user is in the players, he can't quit the team
+                if (!$this->get("mgd_event.application_checker")->canQuit($this->getUser(), $team)) {
+                    $this->addFlash("danger", "Vous ne pouvez quitter une équipe que vous avez créée, vous devez la dissoudre.");
+                } elseif (in_array($user, $team->getPlayers()->toArray()) && $team->isPaid()) {
+                    $this->addFlash("danger", "Vous ne pouvez quitter une équipe une fois que le paiement a été validé.");
+                } else {
+                    $team->removeApplicant($user);
+                    $team->removePlayer($user);
+                    $this->getDoctrine()->getManager()->flush();
+                    $this->addFlash("success", "Vous ne faites plus partie de cette équipe.");
+                }
+            } else {
+                $this->addFlash("danger", "L'utilisateur n'a pas postulé à cette équipe et ne peut donc pas la quitter.");
+            }
+        }
+        return $this->redirectToRoute("mgd_team_show", array("id" => $team->getId()));
     }
 
     /**
@@ -158,12 +187,13 @@ class TeamController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Team $team)
+    private
+    function createDeleteForm(Team $team)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('mgd_team_delete', array('id' => $team->getId())))
             ->setMethod('DELETE')
-            ->add('submit', SubmitType::class, array('label' => 'Delete',
+            ->add('submit', SubmitType::class, array('label' => 'Dissoudre l\'équipe',
                 'attr' => array(
                     'onclick' => 'return confirm("Êtes-vous certains de vouloir supprimer cette équipe?\n\nCette action est irreversible!")',
                     'class' => 'btn btn-danger pull-left col-md-2'
@@ -176,7 +206,9 @@ class TeamController extends Controller
      * @param Team $team The team entity
      * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
      */
-    private function createApplicationForm(Team $team) {
+    private
+    function createApplicationForm(Team $team)
+    {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('mgd_team_application', array('id' => $team->getId())))
             ->setMethod('POST')
@@ -185,6 +217,26 @@ class TeamController extends Controller
                 'attr' => array(
                     'class' => 'btn btn-primary pull-right col-md-2'
                 )))
+            ->getForm();
+    }
+
+    /**
+     * Creates a form to quit a team
+     * @param Team $team
+     * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
+     */
+    private
+    function createQuitTeamForm(Team $team)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl("mgd_team_quit", array("id" => $team->getId())))
+            ->setMethod('POST')
+            ->add("submit", SubmitType::class, array(
+                'label' => 'Quitter cette équipe',
+                'attr' => array(
+                    'class' => 'btn btn-danger pull-right col-md-2'
+                )
+            ))
             ->getForm();
     }
 

@@ -48,6 +48,19 @@ class ApplicationChecker
     }
 
     /**
+     * Check if a user can quit a team
+     * @param User $user
+     * @param Team $team
+     * @return bool
+     */
+    public function canQuit(User $user, Team $team) {
+        if (in_array($team, $user->getManagedTeam()->toArray())) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * This method search if the user is already in a team for the same tournament than the one passed in argument
      * @param User $user
      * @param Team $team
@@ -58,13 +71,31 @@ class ApplicationChecker
             return false;
         }
 
-        $teams = $user->getApplications();
-        foreach ($teams as $userTeam) {
+        foreach ($user->getApplications() as $userTeam) {
+            /** @var Team $userTeam */
+            if ($userTeam->getTournament()->getId() === $team->getTournament()->getId()) {
+                return $userTeam;
+            }
+        }
+
+        foreach ($user->getTeams() as $userTeam) {
+            /** @var Team $userTeam */
+            if ($userTeam->getTournament()->getId() === $team->getTournament()->getId()) {
+                return $userTeam;
+            }
+        }
+
+        foreach ($user->getManagedTeam() as $userTeam) {
             /** @var Team $userTeam */
             if ($userTeam->getTournament()->getId() === $team->getTournament()->getId()) {
                 return $userTeam;
             }
         }
         return false;
+    }
+
+    public function isUserWithThisTeam(User $user, Team $team) {
+        return (in_array($user, $team->getApplicants()->toArray()) ||
+            in_array($user, $team->getPlayingUsers()->toArray()));
     }
 }
