@@ -35,7 +35,7 @@
         </ul>
     {% endif %}
     {% if (is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user.id == team.leader.id) or is_granted('ROLE_ADMIN') %}
-        <a class="btn btn-primary pull-right col-md-2" href="{{ path('mgd_team_edit', { 'id': team.id } ) }}">Edit</a>
+        <a class="btn btn-primary pull-right col-md-2" href="{{ path('mgd_team_edit', { 'id': team.id } ) }}">Gérer mon équipe</a>
 
         {{ form_start(delete_form) }}
         {{ form_end(delete_form) }}

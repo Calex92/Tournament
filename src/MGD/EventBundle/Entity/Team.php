@@ -223,6 +223,10 @@ class Team
                 ->atPath("players")
                 ->addViolation();
         }
+        if ($this->isPaid()) {
+            $context->buildViolation("Une équipe ayant payé et donc validé son inscription ne peut plus être modifiée")
+                ->addViolation();
+        }
     }
 
     /**

@@ -7,6 +7,7 @@ use MGD\UserBundle\Entity\User;
 use MGD\UserBundle\Repository\UserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,8 +20,11 @@ class TeamType extends AbstractType
     {
         /** @var Team $team */
         $team = $builder->getData();
+        $maxPlayerByTeam = $team->getTournament()->getTeamSize();
         $builder
-            ->add('name');
+            ->add('name', TextType::class, array(
+                "label" => "Nom"
+            ));
 
         if ($team->getId() !== null) {
             $builder->add('players', EntityType::class, array(
@@ -31,7 +35,9 @@ class TeamType extends AbstractType
                 },
                 "choice_label" => function (User $user) use ($team) {
                     return $user->getFirstname() . " " . $user->getLastname() . " (" . $user->getGamingUsername($team->getTournament()->getGame()) . ")";
-                }
+                },
+                "label" => "Joueurs (".$maxPlayerByTeam." participants max)",
+                "attr"  => array("class"    => "js-select")
             ));
         }
     }

@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Team edit</h1>
+    <h1>Gérer mon équipe</h1>
 
     {{ form_start(edit_form) }}
     {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" class="btn btn-primary pull-right col-md-2"/>
+        <input type="submit" value="Enregistrer" class="btn btn-primary pull-right col-md-2"/>
     {{ form_end(edit_form) }}
 
     {{ form_start(delete_form) }}

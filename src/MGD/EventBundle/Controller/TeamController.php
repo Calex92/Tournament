@@ -187,8 +187,7 @@ class TeamController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private
-    function createDeleteForm(Team $team)
+    private function createDeleteForm(Team $team)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('mgd_team_delete', array('id' => $team->getId())))
@@ -206,8 +205,7 @@ class TeamController extends Controller
      * @param Team $team The team entity
      * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
      */
-    private
-    function createApplicationForm(Team $team)
+    private function createApplicationForm(Team $team)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('mgd_team_application', array('id' => $team->getId())))
@@ -225,8 +223,7 @@ class TeamController extends Controller
      * @param Team $team
      * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
      */
-    private
-    function createQuitTeamForm(Team $team)
+    private function createQuitTeamForm(Team $team)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl("mgd_team_quit", array("id" => $team->getId())))
