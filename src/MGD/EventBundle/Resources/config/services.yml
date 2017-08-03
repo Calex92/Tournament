@@ -2,7 +2,7 @@ services:
     mgd_event.route_generator:
         class:     MGD\EventBundle\Twig\AppExtension
         public:    false
-        arguments: ["@router", "@mgd_event.application_checker", "@security.token_storage"]
+        arguments: ["@router", "@mgd_event.application_checker", "@security.token_storage", "@mgd_event.team_checker"]
         tags:
             - { name: twig.extension }
 
@@ -13,6 +13,10 @@ services:
     mgd_event.application_checker:
         class:    MGD\EventBundle\Service\ApplicationChecker
         arguments: ["@router", "@security.authorization_checker"]
+
+    mgd_event.team_checker:
+        class:    MGD\EventBundle\Service\TeamChecker
+        arguments: ["@security.authorization_checker"]
 
 #    mgd_event.example:
 #        class: MGD\EventBundle\Example

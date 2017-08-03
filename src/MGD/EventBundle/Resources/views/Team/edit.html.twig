@@ -8,7 +8,9 @@
         <input type="submit" value="Enregistrer" class="btn btn-primary pull-right col-md-2"/>
     {{ form_end(edit_form) }}
 
-    {{ form_start(delete_form) }}
-    {{ form_end(delete_form) }}
+    {% if isTeamDeletable(team, app.user) %}
+        {{ form_start(delete_form) }}
+        {{ form_end(delete_form) }}
+    {% endif %}
     <div class="clearfix"></div>
 {% endblock %}

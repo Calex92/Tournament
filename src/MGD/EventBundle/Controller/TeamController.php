@@ -112,13 +112,13 @@ class TeamController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            if ($team->getLeader()->getId() === $this->getUser()->getId()) {
+            if ($this->get("mgd_event.team_checker")->isDeletable($team, $this->getUser())) {
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($team);
                 $em->flush();
             } else {
-                $this->get('session')->getFlashBag()->add("danger", "Seul le chef d'équipe peut la supprimer");
+                $this->get('session')->getFlashBag()->add("danger", "Seul le chef d'équipe peut supprimer son équipe. <br/>
+                                                                                    Il est aussi impossible de supprimer une équipe qui a été validée (payée).");
             }
         }
 

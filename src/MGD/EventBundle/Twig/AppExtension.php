@@ -14,6 +14,8 @@ use MGD\EventBundle\Entity\Team;
 use MGD\EventBundle\Entity\TournamentSolo;
 use MGD\EventBundle\Entity\TournamentTeam;
 use MGD\EventBundle\Service\ApplicationChecker;
+use MGD\EventBundle\Service\TeamChecker;
+use MGD\UserBundle\Entity\User;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
@@ -31,13 +33,18 @@ class AppExtension extends \Twig_Extension
      * @var TokenStorage
      */
     private $tokenStorage;
+    /**
+     * @var TeamChecker
+     */
+    private $teamChecker;
 
-    public function __construct(Router $router, ApplicationChecker $applicationChecker, TokenStorage $tokenStorage)
+    public function __construct(Router $router, ApplicationChecker $applicationChecker, TokenStorage $tokenStorage, TeamChecker $teamChecker)
     {
 
         $this->router = $router;
         $this->applicationChecker = $applicationChecker;
         $this->tokenStorage = $tokenStorage;
+        $this->teamChecker = $teamChecker;
     }
 
     public function getFunctions() {
@@ -46,6 +53,7 @@ class AppExtension extends \Twig_Extension
             new \Twig_SimpleFunction('isUserWithTeam', array($this, 'isUserWithTeam')),
             new \Twig_SimpleFunction('isUserWithThisTeam', array($this, 'isUserWithThisTeam')),
             new \Twig_SimpleFunction('isUserInTournament', array($this, 'isUserInTournament')),
+            new \Twig_SimpleFunction('isTeamDeletable', array($this, 'isTeamDeletable')),
             new \Twig_SimpleFunction('getTeamFromTournament', array($this, 'getTeamFromTournament'))
         );
     }
@@ -71,6 +79,16 @@ class AppExtension extends \Twig_Extension
      */
     public function isUserWithThisTeam(Team $team) {
         return $this->applicationChecker->isUserWithThisTeam($this->tokenStorage->getToken()->getUser(), $team);
+    }
+
+    /**
+     * Check if a team can be deleted by the current user or not
+     * @param Team $team
+     * @param User $user
+     * @return bool
+     */
+    public function isTeamDeletable(Team $team, User $user) {
+        return $this->teamChecker->isDeletable($team, $user);
     }
 
     /**
