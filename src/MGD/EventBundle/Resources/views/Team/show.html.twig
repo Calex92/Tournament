@@ -26,14 +26,14 @@
             <li>{{ player.lastname }} {{ player.firstname }}</li>
         {% endfor %}
     </ul>
-
+    {% if team.applicants|length > 0 %}
         <h3>Les personnes ayant postulé</h3>
         <ul>
             {% for applicant in team.applicants %}
                 <li>{{ applicant.lastname }} {{ applicant.firstname }}</li>
             {% endfor %}
         </ul>
-
+    {% endif %}
     {% if (is_granted('IS_AUTHENTICATED_REMEMBERED') and app.user.id == team.leader.id) or is_granted('ROLE_ADMIN') %}
         <a class="btn btn-primary pull-right col-md-2" href="{{ path('mgd_team_edit', { 'id': team.id } ) }}">Edit</a>
 

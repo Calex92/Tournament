@@ -64,11 +64,11 @@ class Team
     private $leader;
 
     /**
-     * @var int
+     * @var boolean
      *
-     * @ORM\Column(name="is_paid", type="boolean")
+     * @ORM\Column(name="is_paid", type="boolean", )
      */
-    private $paid;
+    private $paid = false;
 
     /**
      * Team constructor.
@@ -226,7 +226,7 @@ class Team
     }
 
     /**
-     * @return int
+     * @return boolean
      */
     public function isPaid()
     {
@@ -234,7 +234,7 @@ class Team
     }
 
     /**
-     * @param int $paid
+     * @param boolean $paid
      * @return $this
      */
     public function setPaid($paid)
