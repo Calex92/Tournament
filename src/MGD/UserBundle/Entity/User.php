@@ -95,6 +95,16 @@ class User extends BaseUser
     private $gamingProfiles;
 
     /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->teams = new ArrayCollection();
+    }
+
+
+    /**
      * Get id
      *
      * @return int

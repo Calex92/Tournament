@@ -4,6 +4,9 @@
     "license": "proprietary",
     "type": "project",
     "autoload": {
+        "psr-0": {
+            "phpUnit": ""
+        },
         "psr-4": {
             "": "src/"
         },
@@ -42,6 +45,7 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^2.3",
         "sensio/generator-bundle": "^3.0",
+        "phpunit/phpunit": "5.7",
         "symfony/phpunit-bridge": "^3.0"
     },
     "scripts": {

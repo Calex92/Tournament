@@ -16,3 +16,4 @@
 /web/bundles/
 /.idea/
 /web/config.php
+phpunit.xml.dist

@@ -33,7 +33,8 @@ class TeamChecker
      * @param User $user
      * @return bool
      */
-    public function isDeletable(Team $team, User $user) {
+    public function isDeletable(Team $team, User $user)
+    {
         if ($this->authorizationChecker->isGranted("ROLE_ADMIN")) {
             //This is an admin, he can do what he wants!
             return true;
@@ -47,8 +48,7 @@ class TeamChecker
         if ($team->isPaid()) {
             //The user is not admin and the team has pay, so it's not possible anymore to delete it
             return false;
-        }
-        else {
+        } else {
             //the team isn't validated, we can delete it
             return true;
         }
