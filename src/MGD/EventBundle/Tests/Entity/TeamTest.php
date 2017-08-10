@@ -22,10 +22,8 @@ class TeamTest extends WebTestCase
     /** @var  ArrayCollection */
     private $players;
 
-    public function __construct($name = null, array $data = [], $dataName = '')
+    public function setUp()
     {
-        parent::__construct($name, $data, $dataName);
-
         $this->leader = new User();
         $this->team = new Team();
 
@@ -35,7 +33,8 @@ class TeamTest extends WebTestCase
         $this->players = new ArrayCollection(array($player1, $player2));
     }
 
-    public function testGetPlayingUserIsCountCorrect() {
+    public function testGetPlayingUserIsCountCorrect()
+    {
         $this->team->setLeader($this->leader);
 
         foreach ($this->players as $player) {
@@ -45,10 +44,34 @@ class TeamTest extends WebTestCase
         $this->assertEquals(3, $this->team->getPlayingUsers()->count());
     }
 
-    public function testGetPlayingUserIsLeaderInCount() {
+    public function testGetPlayingUserIsLeaderInCount()
+    {
         $this->team->setLeader($this->leader);
 
         $this->assertEquals(1, $this->team->getPlayingUsers()->count());
         $this->assertContains($this->leader, $this->team->getPlayingUsers());
+    }
+
+    public function testAddPlayer() {
+        $newPlayer = new User();
+
+        $this->team->addPlayer($newPlayer);
+
+        $this->assertCount(1, $this->team->getPlayers());
+
+        foreach ($this->players as $player) {
+            $this->team->addPlayer($player);
+        }
+        $this->assertCount(3, $this->team->getPlayers());
+    }
+
+    public function testRemovePlayer() {
+        foreach ($this->players as $player) {
+            $this->team->addPlayer($player);
+        }
+        $this->assertCount(2, $this->team->getPlayers());
+
+        $this->team->removePlayer($this->players->get(1));
+        $this->assertCount(1, $this->team->getPlayers());
     }
 }

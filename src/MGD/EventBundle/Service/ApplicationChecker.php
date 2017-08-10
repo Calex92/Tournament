@@ -12,7 +12,7 @@ namespace MGD\EventBundle\Service;
 use MGD\EventBundle\Entity\Team;
 use MGD\UserBundle\Entity\User;
 use Symfony\Component\Routing\Router;
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ApplicationChecker
 {
@@ -21,14 +21,19 @@ class ApplicationChecker
      */
     private $router;
     /**
-     * @var AuthorizationChecker
+     * @var AuthorizationCheckerInterface
      */
     private $authorizationChecker;
+    /**
+     * @var TeamChecker
+     */
+    private $teamChecker;
 
-    public function __construct(Router $router, AuthorizationChecker $authorizationChecker)
+    public function __construct(Router $router, AuthorizationCheckerInterface $authorizationChecker, TeamChecker $teamChecker)
     {
         $this->router = $router;
         $this->authorizationChecker = $authorizationChecker;
+        $this->teamChecker = $teamChecker;
     }
 
     /**
@@ -40,7 +45,7 @@ class ApplicationChecker
     public function canApply(User $user, Team $team) {
         if ($user->getGamingUsername($team->getTournament()->getGame()) === null) {
             return "Vous devez avoir un nom d'utilisateur pour pouvoir vous inscrire, renseignez le dans \"Mon profil\"";
-        } else if (false !== $teamAlreadyIn = $this->isAlreadyApplicant($user, $team)) {
+        } else if (false !== $teamAlreadyIn = $this->teamChecker->isAlreadyApplicant($user, $team)) {
             return "Vous avez déjà postulé pour une équipe pour ce tournoi : 
             <a href=\"".$this->router->generate("mgd_team_show", array("id" => $teamAlreadyIn->getId()))."\">".htmlspecialchars($teamAlreadyIn->getName())."</a>";
         }
@@ -60,39 +65,7 @@ class ApplicationChecker
         return true;
     }
 
-    /**
-     * This method search if the user is already in a team for the same tournament than the one passed in argument
-     * @param User $user
-     * @param Team $team
-     * @return bool|Team|mixed
-     */
-    public function isAlreadyApplicant($user, Team $team) {
-        if (!$user || !$this->authorizationChecker->isGranted("ROLE_USER")) {
-            return false;
-        }
 
-        foreach ($user->getApplications() as $userTeam) {
-            /** @var Team $userTeam */
-            if ($userTeam->getTournament()->getId() === $team->getTournament()->getId()) {
-                return $userTeam;
-            }
-        }
-
-        foreach ($user->getTeams() as $userTeam) {
-            /** @var Team $userTeam */
-            if ($userTeam->getTournament()->getId() === $team->getTournament()->getId()) {
-                return $userTeam;
-            }
-        }
-
-        foreach ($user->getManagedTeam() as $userTeam) {
-            /** @var Team $userTeam */
-            if ($userTeam->getTournament()->getId() === $team->getTournament()->getId()) {
-                return $userTeam;
-            }
-        }
-        return false;
-    }
 
     public function isUserWithThisTeam(User $user, Team $team) {
         return (in_array($user, $team->getApplicants()->toArray()) ||

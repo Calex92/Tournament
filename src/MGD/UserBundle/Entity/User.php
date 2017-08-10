@@ -101,6 +101,9 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->teams = new ArrayCollection();
+        $this->gamingProfiles = new ArrayCollection();
+        $this->managedTeam = new ArrayCollection();
+        $this->applications = new ArrayCollection();
     }
 
 
@@ -322,7 +325,7 @@ class User extends BaseUser
     {
         foreach ($this->gamingProfiles as $gamingProfile) {
             /** @var GamingProfile $gamingProfile */
-            if ($game->getId() == $gamingProfile->getGame()->getId()) {
+            if ($game === $gamingProfile->getGame()) {
                 return $gamingProfile->getUsername();
             }
         }

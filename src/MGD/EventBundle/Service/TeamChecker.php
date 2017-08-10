@@ -53,4 +53,38 @@ class TeamChecker
             return true;
         }
     }
+
+    /**
+     * This method search if the user is already in a team for the same tournament than the one passed in argument
+     * @param User $user
+     * @param Team $team
+     * @return bool|Team|mixed
+     */
+    public function isAlreadyApplicant($user, Team $team) {
+        if (!$user || !$this->authorizationChecker->isGranted("ROLE_USER")) {
+            return false;
+        }
+
+        foreach ($user->getApplications() as $userTeam) {
+            /** @var Team $userTeam */
+            if ($userTeam->getTournament()->getId() === $team->getTournament()->getId()) {
+                return $userTeam;
+            }
+        }
+
+        foreach ($user->getTeams() as $userTeam) {
+            /** @var Team $userTeam */
+            if ($userTeam->getTournament()->getId() === $team->getTournament()->getId()) {
+                return $userTeam;
+            }
+        }
+
+        foreach ($user->getManagedTeam() as $userTeam) {
+            /** @var Team $userTeam */
+            if ($userTeam->getTournament()->getId() === $team->getTournament()->getId()) {
+                return $userTeam;
+            }
+        }
+        return false;
+    }
 }
