@@ -12,7 +12,7 @@ services:
 
     mgd_event.application_checker:
         class:    MGD\EventBundle\Service\ApplicationChecker
-        arguments: ["@router", "@security.authorization_checker"]
+        arguments: ["@router", "@security.authorization_checker", "@mgd_event.team_checker"]
 
     mgd_event.team_checker:
         class:    MGD\EventBundle\Service\TeamChecker
