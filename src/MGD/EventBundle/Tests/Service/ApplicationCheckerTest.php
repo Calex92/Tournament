@@ -8,6 +8,7 @@
 
 namespace MGD\EventBundle\Tests\Service;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use MGD\EventBundle\Entity\Game;
 use MGD\EventBundle\Service\ApplicationChecker;
 use MGD\EventBundle\Service\TeamChecker;
@@ -63,66 +64,123 @@ class ApplicationCheckerTest extends TestCase
         $this->assertContains("Vous avez déjà postulé pour une équipe pour ce tournoi", $applicationChecker->canApply($user, $team));
     }
 
-    /**
-     * The user is connected and try to apply to a team and applied for another team for another game
-     */
-    /*public function testCanApplySecondTeamAnotherGame() {
-        $user = new User();
-        $game = new Game();
-        $anotherGame = new Game();
+    public function testCanApplyWhenAllIsOk()
+    {
+        $router = $this->createMock(Router::class);
+        $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
+        $authorizationChecker->method("isGranted")->willReturn(true);
+        $teamChecker = $this->createMock(TeamChecker::class);
+        $teamChecker->method("isAlreadyApplicant")->willReturn(false);
 
-        $team = $this->createMock("MGD\EventBundle\Entity\Team");
-        $anotherTeam = $this->createMock("MGD\EventBundle\Entity\Team");
+        $applicationChecker = new ApplicationChecker($router, $authorizationChecker, $teamChecker);
+
+        $user = $this->createMock("MGD\UserBundle\Entity\User");
+        $user->method("getGamingUsername")->willReturn("Hello");
 
         $tournament = $this->createMock("MGD\EventBundle\Entity\Tournament");
-        $tournament->expects($this->any())
-            ->method("getId")
-            ->willReturn(1);
+        $tournament->method("getGame")->willReturn(new Game());
 
-        $anotherTournament = $this->createMock("MGD\EventBundle\Entity\Tournament");
-        $tournament->expects($this->any())
-            ->method("getId")
-            ->willReturn(2);
+        $team = $this->createMock("MGD\EventBundle\Entity\Team");
+        $team->method("getTournament")->willReturn($tournament);
 
-        $team->expects($this->any())
-            ->method("getTournament")
-            ->willReturn($tournament);
-        $anotherTeam->expects($this->any())
-            ->method("getTournament")
-            ->willReturn($anotherTournament);
+        $this->assertTrue($applicationChecker->canApply($user, $team));
+    }
 
-        $tournament->expects($this->any())
-            ->method("getGame")
-            ->willReturn($game);
-        $anotherTournament->expects($this->any())
-            ->method("getGame")
-            ->willReturn($anotherGame);
-
-        $game->setName("TestGame");
-        $anotherGame->setName("AnotherGame");
-
-        $gamingProfile = new GamingProfile();
-        $gamingProfile->setGame($game);
-        $gamingProfile->setUsername("TestGameUsername");
-
-        $anotherGamingProfile = new GamingProfile();
-        $anotherGamingProfile->setGame($anotherGame);
-        $anotherGamingProfile->setUsername("TestAnotherGameUsername");
-
-        $user->setGamingProfiles(new ArrayCollection(array($gamingProfile, $anotherGamingProfile)));
-
-        $user->addApplication($anotherTeam);
-        $user->addTeam($anotherTeam);
-
+    public function testCanQuitIsManager()
+    {
         $router = $this->createMock(Router::class);
         $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $authorizationChecker->method("isGranted")->willReturn(true);
         $teamChecker = $this->createMock(TeamChecker::class);
 
+        $applicationChecker = new ApplicationChecker($router, $authorizationChecker, $teamChecker);
+
+        $user = $this->createMock("MGD\UserBundle\Entity\User");
+
+        $team = $this->createMock("MGD\EventBundle\Entity\Team");
+        $team2 = $this->createMock("MGD\EventBundle\Entity\Team");
+        $team3 = $this->createMock("MGD\EventBundle\Entity\Team");
+        $user->method("getManagedTeam")->willReturn(new ArrayCollection(array($team, $team2, $team3)));
+
+        $this->assertFalse($applicationChecker->canQuit($user, $team));
+    }
+
+    public function testCanQuitIsNotManager()
+    {
+        $router = $this->createMock(Router::class);
+        $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
+        $authorizationChecker->method("isGranted")->willReturn(true);
+        $teamChecker = $this->createMock(TeamChecker::class);
 
         $applicationChecker = new ApplicationChecker($router, $authorizationChecker, $teamChecker);
-        //Here, we try to apply to a team
-        $this->assertTrue($applicationChecker->canApply($user, $team));
 
-    }*/
+        $user = $this->createMock("MGD\UserBundle\Entity\User");
+
+        $team = $this->createMock("MGD\EventBundle\Entity\Team");
+        $team2 = $this->createMock("MGD\EventBundle\Entity\Team");
+        $team3 = $this->createMock("MGD\EventBundle\Entity\Team");
+        $user->method("getManagedTeam")->willReturn(new ArrayCollection(array($team2, $team3)));
+
+        $this->assertTrue($applicationChecker->canQuit($user, $team));
+    }
+
+    public function testIsUserWithThisTeamIsInApplicants()
+    {
+        $router = $this->createMock(Router::class);
+        $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
+        $authorizationChecker->method("isGranted")->willReturn(true);
+        $teamChecker = $this->createMock(TeamChecker::class);
+
+        $applicationChecker = new ApplicationChecker($router, $authorizationChecker, $teamChecker);
+
+        $user = $this->createMock("MGD\UserBundle\Entity\User");
+        $user2 = $this->createMock("MGD\UserBundle\Entity\User");
+        $user3 = $this->createMock("MGD\UserBundle\Entity\User");
+
+        $team = $this->createMock("MGD\EventBundle\Entity\Team");
+        $team->method("getApplicants")->willReturn(new ArrayCollection(array($user, $user2, $user3)));
+        $team->method("getPlayingUsers")->willReturn(new ArrayCollection(array($user2, $user3)));
+
+        $this->assertTrue($applicationChecker->isUserWithThisTeam($user, $team));
+    }
+
+    public function testIsUserWithThisTeamIsNotInApplicants()
+    {
+        $router = $this->createMock(Router::class);
+        $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
+        $authorizationChecker->method("isGranted")->willReturn(true);
+        $teamChecker = $this->createMock(TeamChecker::class);
+
+        $applicationChecker = new ApplicationChecker($router, $authorizationChecker, $teamChecker);
+
+        $user = $this->createMock("MGD\UserBundle\Entity\User");
+        $user2 = $this->createMock("MGD\UserBundle\Entity\User");
+        $user3 = $this->createMock("MGD\UserBundle\Entity\User");
+
+        $team = $this->createMock("MGD\EventBundle\Entity\Team");
+        $team->method("getApplicants")->willReturn(new ArrayCollection(array($user2, $user3)));
+        $team->method("getPlayingUsers")->willReturn(new ArrayCollection(array($user2, $user3)));
+
+        $this->assertFalse($applicationChecker->isUserWithThisTeam($user, $team));
+    }
+
+    public function testIsUserWithThisTeamIsInPlayingUsers()
+    {
+        $router = $this->createMock(Router::class);
+        $authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
+        $authorizationChecker->method("isGranted")->willReturn(true);
+        $teamChecker = $this->createMock(TeamChecker::class);
+
+        $applicationChecker = new ApplicationChecker($router, $authorizationChecker, $teamChecker);
+
+        $user = $this->createMock("MGD\UserBundle\Entity\User");
+        $user2 = $this->createMock("MGD\UserBundle\Entity\User");
+        $user3 = $this->createMock("MGD\UserBundle\Entity\User");
+
+        $team = $this->createMock("MGD\EventBundle\Entity\Team");
+        $team->method("getApplicants")->willReturn(new ArrayCollection(array($user2, $user3)));
+        $team->method("getPlayingUsers")->willReturn(new ArrayCollection(array($user, $user2, $user3)));
+
+        $this->assertTrue($applicationChecker->isUserWithThisTeam($user, $team));
+    }
 }

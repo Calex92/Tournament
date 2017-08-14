@@ -42,12 +42,13 @@ class ApplicationChecker
      * @param Team $team
      * @return bool|string
      */
-    public function canApply(User $user, Team $team) {
+    public function canApply(User $user, Team $team)
+    {
         if ($user->getGamingUsername($team->getTournament()->getGame()) === null) {
             return "Vous devez avoir un nom d'utilisateur pour pouvoir vous inscrire, renseignez le dans \"Mon profil\"";
         } else if (false !== $teamAlreadyIn = $this->teamChecker->isAlreadyApplicant($user, $team)) {
             return "Vous avez déjà postulé pour une équipe pour ce tournoi : 
-            <a href=\"".$this->router->generate("mgd_team_show", array("id" => $teamAlreadyIn->getId()))."\">".htmlspecialchars($teamAlreadyIn->getName())."</a>";
+            <a href=\"" . $this->router->generate("mgd_team_show", array("id" => $teamAlreadyIn->getId())) . "\">" . htmlspecialchars($teamAlreadyIn->getName()) . "</a>";
         }
         return true;
     }
@@ -58,17 +59,13 @@ class ApplicationChecker
      * @param Team $team
      * @return bool
      */
-    public function canQuit(User $user, Team $team) {
-        if (in_array($team, $user->getManagedTeam()->toArray())) {
-            return false;
-        }
-        return true;
+    public function canQuit(User $user, Team $team)
+    {
+        return !$user->getManagedTeam()->contains($team);
     }
 
-
-
-    public function isUserWithThisTeam(User $user, Team $team) {
-        return (in_array($user, $team->getApplicants()->toArray()) ||
-            in_array($user, $team->getPlayingUsers()->toArray()));
+    public function isUserWithThisTeam(User $user, Team $team)
+    {
+        return ($team->getApplicants()->contains($user) || $team->getPlayingUsers()->contains($user));
     }
 }
