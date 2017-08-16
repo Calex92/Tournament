@@ -11,17 +11,17 @@ namespace MGD\EventBundle\Service;
 
 use MGD\EventBundle\Entity\Team;
 use MGD\UserBundle\Entity\User;
-use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class TeamChecker
 {
 
     /**
-     * @var AuthorizationChecker
+     * @var AuthorizationCheckerInterface
      */
     private $authorizationChecker;
 
-    public function __construct(AuthorizationChecker $authorizationChecker)
+    public function __construct(AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->authorizationChecker = $authorizationChecker;
     }
