@@ -19,9 +19,9 @@
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
-<body style="background-color: lightblue">
+<body style="background-color: #080855">
 <img src="http://placehold.it/1500x100" width="100%"/>
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-gold">
     <div class="container-fluid">
         {{ knp_menu_render('main', {'currentClass': 'active', 'allow_safe_labels': true}) }}
     </div>
@@ -55,7 +55,6 @@
 <script src="{{ asset('bundles/sgdatatables/js/pipeline.js') }}"></script>
 
 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 
 <script src="{{ asset('bundles/pinanoselect2/js/select2.js') }}"></script>
 <script src="{{ asset('bundles/pinanoselect2/js/i18n/fr.js') }}"></script>

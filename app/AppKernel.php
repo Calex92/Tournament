@@ -22,7 +22,6 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new MGD\AdminBundle\MGDAdminBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
-            new Sg\DatatablesBundle\SgDatatablesBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Pinano\Select2Bundle\PinanoSelect2Bundle()

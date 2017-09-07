@@ -11,6 +11,29 @@
     float: none;
     display: inline-block;
 }
+
+.navbar-gold {
+    background-color: #dfc11f;;
+    border-color: #bfa100;
+    border-radius: 0;
+    color: #555 !important;
+}
+
+.navbar-gold .navbar-nav > .active > a, .navbar-gold .navbar-nav > .active > a:focus, .navbar-gold .navbar-nav > .active > a:hover {
+    color: #555;
+    background-color: #bfa100;
+}
+
+.navbar-gold .navbar-nav>li>a:focus,
+.navbar-gold .navbar-nav>li>a:hover{
+    color:#555;
+    background-color:#bfa100
+}
+
+.navbar-gold .navbar-nav > li > a {
+    color: #777;
+}
+
 .container .main-content {
     background-color: white;
     padding: 2%;
