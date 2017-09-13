@@ -29,17 +29,19 @@
         "doctrine/doctrine-cache-bundle": "^1.2",
         "doctrine/orm": "^2.5",
         "egeloen/ckeditor-bundle": "^5.0",
+        "friendsofsymfony/jsrouting-bundle": "1.6.0",
         "friendsofsymfony/user-bundle": "2.0.0",
         "incenteev/composer-parameter-handler": "^2.0",
         "knplabs/knp-menu-bundle": "^2.0",
+        "pinano/select2-bundle": "dev-master",
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
+        "sg/datatablesbundle": "^1.0",
         "symfony/monolog-bundle": "^3.0.2",
         "symfony/polyfill-apcu": "^1.0",
         "symfony/swiftmailer-bundle": "^2.3.10",
         "symfony/symfony": "3.2.*",
-        "twig/twig": "^1.0||^2.0",
-        "pinano/select2-bundle": "dev-master"
+        "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^2.3",

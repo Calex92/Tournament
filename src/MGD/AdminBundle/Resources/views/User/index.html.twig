@@ -3,7 +3,8 @@
 {% block body %}
     <h1>Voici la liste des utilisateurs inscrits à l'application</h1>
 
-
-
+    <div class="col-md-12">
+    {{ sg_datatables_render(datatableUsers) }}
+    </div>
     <div class="clearfix"></div>
 {% endblock %}

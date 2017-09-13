@@ -24,7 +24,8 @@ class AppKernel extends Kernel
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
-            new Pinano\Select2Bundle\PinanoSelect2Bundle()
+            new Pinano\Select2Bundle\PinanoSelect2Bundle(),
+            new Sg\DatatablesBundle\SgDatatablesBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

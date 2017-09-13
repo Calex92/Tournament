@@ -9,3 +9,7 @@ services:
         arguments: ["@knp_menu.factory", "@security.authorization_checker"]
         tags:
             - { name: knp_menu.menu_builder, method: createMainMenu, alias: main }
+
+    app.datatable.user:
+        class: MGD\UserBundle\Datatables\UserDatatable
+        parent: sg_datatables.datatable.abstract

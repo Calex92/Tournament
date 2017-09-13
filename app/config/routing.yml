@@ -18,6 +18,7 @@ mgd_news:
     resource: "@MGDNewsBundle/Resources/config/routing.yml"
     prefix:   /news
 
+#FOSUserBundle
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
@@ -36,3 +37,12 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+
+#FOSJsRoutinBundle
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+#SgDatatablesBundle
+sg_datatables_bundle:
+    resource: "@SgDatatablesBundle/Controller/"
+    type:     annotation
