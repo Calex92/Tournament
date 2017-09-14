@@ -3,15 +3,21 @@
 {% block body %}
     {% for news in listNews %}
         <div class="row">
-            {% if news.cover %}<img src="{{ news.cover }}" class="col-md-3" style="height: 180px;">{% endif %}
+            {% if news.cover %}
+                <div class="col-md-3">
+                    <img src="{{ vich_uploader_asset(news, 'coverFile') }}"
+                         class="img-rounded img-responsive center-block img-news">
+                </div>
+            {% endif %}
             <div class="{% if news.cover %}col-md-9{% else %}col-md-12{% endif %}">
                 <h1>{{ news.title }}</h1>
                 <p>
-                    {{ news.body|striptags |length > 300 ? news.body|striptags |slice(0, 300) ~ '...' : news.body|striptags }}
+                    {{ news.body|striptags |length > 300 ? news.body|striptags |slice(0, 400) ~ '...' : news.body|striptags }}
                 </p>
                 <span>Créé le {{ news.creationDate|date("d/m/Y") }}
                     par {{ news.author.firstname }} {{ news.author.lastname }}</span>
-                <a href="{{ path("mgd_news_show", {'id' : news.id } ) }}" class="pull-right btn btn-default">Lire la suite</a>
+                <a href="{{ path("mgd_news_show", {'id' : news.id } ) }}" class="pull-right btn btn-default">Lire la
+                    suite</a>
             </div>
         </div>
         <hr>

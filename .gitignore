@@ -17,3 +17,5 @@
 /.idea/
 /web/config.php
 phpunit.xml.dist
+/web/images
+/web/js

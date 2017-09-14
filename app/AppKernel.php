@@ -25,7 +25,8 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
             new Pinano\Select2Bundle\PinanoSelect2Bundle(),
-            new Sg\DatatablesBundle\SgDatatablesBundle()
+            new Sg\DatatablesBundle\SgDatatablesBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

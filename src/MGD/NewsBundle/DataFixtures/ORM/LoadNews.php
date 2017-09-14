@@ -32,7 +32,7 @@ class LoadNews extends LoadObject implements OrderedFixtureInterface
                 "creationDate"  => new \DateTime(),
                 "visible"       => true,
                 "publicationDate"   => new \DateTime(),
-                "image"         => "http://placehold.it/200x150",
+                "image"         => "hearthstone.png",
                 "author"        => "Fontenelle"
             ),
             array(
@@ -41,7 +41,7 @@ class LoadNews extends LoadObject implements OrderedFixtureInterface
                 "creationDate"  => new \DateTime(),
                 "visible"       => true,
                 "publicationDate"   => new \DateTime(),
-                "image"         => "http://placehold.it/500x350",
+                "image"         => "league of legends.png",
                 "author"        => "Fontenelle"
             ),
             array(

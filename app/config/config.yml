@@ -97,3 +97,15 @@ ivory_ck_editor:
              [ 'Bold','Italic','Underline','Strike', 'Blockquote','Subscript','Superscript' ], "/",
              [ 'NumberedList','BulletedList','-','Outdent','Indent','-','-','JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock' ],
              [ 'Styles', 'Format','Font','FontSize', '-', 'TextColor','BGColor' ], [ 'Maximize' ]]
+
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        news_image:
+            uri_prefix:
+            uri_prefix:         '/../%application_name%/web/images/news'
+            upload_destination: '%kernel.root_dir%/../web/images/news'
+            namer:              vich_uploader.namer_origname
+            delete_on_update:   true
+            delete_on_remove:   true

@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class NewsType extends AbstractType
 {
@@ -49,10 +50,11 @@ class NewsType extends AbstractType
                         "label" => "Corps du texte"
                     )
                 )
-                ->add('cover', TextType::class,
-                    array(
+                ->add('coverFile', VichImageType::class,
+                    array (
                         "label"     => "Image de couverture",
-                        "required"  => false
+                        'required' => false,
+                        'allow_delete' => true
                     )
                 );
     }

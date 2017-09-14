@@ -4,7 +4,8 @@
     <div class="col-md-12">
         {% if news.cover %}
         <div class="pull-right col-md-5">
-            <img src="{{ news.cover }}" title="{{ news.title }}" width="100%">
+            <img src="{{ vich_uploader_asset(news, 'coverFile') }}"
+                 class="img-responsive center-block" width="100%">
         </div>
         {% endif %}
 

@@ -29,12 +29,13 @@
     </div>
 
     <div class="form-group col-md-6">
-        {{ form_label(form.cover, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
+        {{ form_label(form.coverFile, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
         <div class="col-sm-8">
-            {{ form_widget(form.cover, {"attr": {'class' : "form-control"}}) }}
+            {{ form_widget(form.coverFile, {"attr": {'class' : ""}}) }}
         </div>
-        {{ form_errors(form.cover) }}
+        {{ form_errors(form.coverFile) }}
     </div>
+
     <div class="form-group col-md-12">
         {{ form_label(form.body, null, {'label_attr' : {"class" : "col-sm-4 control-label"}} ) }}
         <div class="col-sm-12">
